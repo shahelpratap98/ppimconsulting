@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — PPIM Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Figtree:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF7;
+  --ink:#16211B;
+  --ink-soft:#46544C;
+  --pounamu:#11402F;
+  --pounamu-deep:#0B2C20;
+  --kowhai:#D9A521;
+  --mist:#E5EDE7;
+  --line:rgba(22,33,27,.14);
+  --radius:14px;
+  --display:"Bricolage Grotesque",Georgia,serif;
+  --body:"Figtree",system-ui,sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;font-size:17px}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--pounamu);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1.5px;background:var(--kowhai)}
+h1,h2,h3{font-family:var(--display);line-height:1.08;letter-spacing:-.015em;font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:16px;padding:14px 26px;border-radius:999px;border:1.5px solid var(--pounamu);transition:all .2s ease;cursor:pointer}
+.btn-solid{background:var(--pounamu);color:#fff}
+.btn-solid:hover{background:var(--pounamu-deep);border-color:var(--pounamu-deep);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--pounamu)}
+.btn-ghost:hover{background:var(--mist)}
+.btn .arrow{transition:transform .2s ease}
+.btn:hover .arrow{transform:translateX(3px)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2.5px solid var(--kowhai);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,250,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:38px;height:38px}
+.brand-name{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:-.01em}
+.brand-name span{color:var(--pounamu)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links a{font-weight:500;font-size:15.5px;padding:9px 15px;border-radius:999px;color:var(--ink-soft);transition:all .15s ease}
+.nav-links a:hover{color:var(--ink);background:var(--mist)}
+.nav-links a.cta{margin-left:8px;background:var(--pounamu);color:#fff;font-weight:600}
+.nav-links a.cta:hover{background:var(--pounamu-deep)}
+body[data-page="home"]     a[data-link="home"],
+body[data-page="services"] a[data-link="services"],
+body[data-page="faq"]      a[data-link="faq"],
+body[data-page="contact"]  a[data-link="contact"]{color:var(--pounamu);font-weight:600;background:var(--mist)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.nav-toggle svg{width:26px;height:26px;stroke:var(--ink)}
+@media (max-width:840px){
+  .nav-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:74px;left:0;right:0;background:var(--paper);flex-direction:column;align-items:stretch;padding:14px 24px 22px;gap:4px;border-bottom:1px solid var(--line);box-shadow:0 18px 30px -18px rgba(11,44,32,.25)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:13px 16px}
+  .nav-links a.cta{margin:8px 0 0;text-align:center;justify-content:center}
+}
+
+/* ---------- shared sections ---------- */
+.section{padding:96px 0}
+.section.tight{padding:72px 0}
+.section-head{max-width:640px;margin-bottom:52px}
+.section-head h2{font-size:clamp(30px,4vw,42px);margin:14px 0 14px}
+.section-head p{color:var(--ink-soft);font-size:18px}
+.page-hero{padding:84px 0 64px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.page-hero h1{font-size:clamp(38px,5.5vw,58px);margin:16px 0 18px;max-width:760px}
+.page-hero p.lede{font-size:19px;color:var(--ink-soft);max-width:620px}
+.koru-bg{position:absolute;right:-60px;top:-40px;width:380px;opacity:.10;pointer-events:none}
+@media (max-width:700px){.koru-bg{width:240px;right:-80px}}
+
+/* ---------- footer ---------- */
+footer{background:var(--pounamu-deep);color:#E9F1EC;margin-top:40px}
+.foot-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:64px 0 48px}
+.foot-inner .brand-name{color:#fff}
+.foot-inner p{color:#A9C0B4;font-size:15px;margin-top:14px;max-width:300px}
+.foot-col h4{font-family:var(--mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--kowhai);margin-bottom:18px;font-weight:500}
+.foot-col ul{list-style:none}
+.foot-col li{margin-bottom:11px}
+.foot-col a{color:#C9D9D0;font-size:15.5px;transition:color .15s}
+.foot-col a:hover{color:#fff}
+.foot-base{border-top:1px solid rgba(233,241,236,.15);padding:22px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13.5px;color:#8FA89C}
+@media (max-width:840px){.foot-inner{grid-template-columns:1fr 1fr;gap:32px}}
+@media (max-width:520px){.foot-inner{grid-template-columns:1fr}}
+
+/* ---------- faq ---------- */
+.faq-wrap{max-width:780px;margin:0 auto}
+.faq-group{margin-bottom:52px}
+.faq-group h2{font-size:24px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.faq-group h2::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--kowhai)}
+.faq-item{border:1px solid var(--line);border-radius:var(--radius);background:#fff;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.faq-item[open]{border-color:var(--pounamu)}
+.faq-item summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 24px;font-weight:600;font-size:17px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .chev{flex:none;width:28px;height:28px;border-radius:50%;background:var(--mist);display:grid;place-items:center;color:var(--pounamu);font-size:15px;transition:transform .25s ease}
+.faq-item[open] summary .chev{transform:rotate(45deg);background:var(--pounamu);color:#fff}
+.faq-item .answer{padding:0 24px 22px;color:var(--ink-soft);font-size:16px}
+.faq-item .answer a{color:var(--pounamu);font-weight:600;text-decoration:underline}
+.faq-cta{margin-top:28px;text-align:center;border:1.5px dashed var(--kowhai);border-radius:var(--radius);background:#FFFDF4;padding:36px 28px}
+.faq-cta h3{font-size:22px;margin-bottom:8px}
+.faq-cta p{color:var(--ink-soft);margin-bottom:20px}
+</style>
+</head>
+<body data-page="faq">
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="PPIM Consulting home">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="23" fill="#11402F"/>
+        <path d="M24 38 C14 38 10 30 12 23 C14 16 21 13 26 15 C31 17 32 23 29 26 C26 29 21 28 21 24 C21 21 24 20 25.5 22" stroke="#D9A521" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="brand-name">PPIM <span>Consulting</span></span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" onclick="const l=document.querySelector('.nav-links');const o=l.classList.toggle('open');this.setAttribute('aria-expanded',o)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a data-link="home" href="index.html">Home</a></li>
+      <li><a data-link="services" href="services.html">Services</a></li>
+      <li><a data-link="faq" href="faq.html">FAQ</a></li>
+      <li><a data-link="contact" href="contact.html">Contact</a></li>
+      <li><a class="cta" href="contact.html">Book a consultation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <svg class="koru-bg" viewBox="0 0 320 320" fill="none" aria-hidden="true">
+    <path d="M160 290 C70 290 28 216 41 152 C54 88 120 56 170 72 C220 88 236 144 210 178 C184 212 131 204 126 162 C122 130 150 116 168 132" stroke="#11402F" stroke-width="10" stroke-linecap="round"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">Frequently asked questions</p>
+    <h1>Straight answers about moving to New Zealand</h1>
+    <p class="lede">The questions we hear most from people thinking about the move. If yours isn't here, ask us directly — the first conversation is free.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap faq-wrap">
+
+    <div class="faq-group">
+      <h2>Getting started</h2>
+      <details class="faq-item" open>
+        <summary>Am I eligible to migrate to New Zealand? <span class="chev">+</span></summary>
+        <div class="answer">It depends on your age, qualifications, work experience, English ability, health and character — and which visa category you apply under. Rather than guessing, book a free 30-minute assessment and we'll tell you honestly which pathways are open to you, and which aren't.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do I need a job offer before I can apply? <span class="chev">+</span></summary>
+        <div class="answer">For most work visas, yes — the Accredited Employer Work Visa requires an offer from an accredited New Zealand employer. Some residence pathways, however, can be built on qualifications and experience. We'll map which routes need an offer and which don't for your situation.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How long does the whole process take? <span class="chev">+</span></summary>
+        <div class="answer">Timeframes vary widely by visa type and Immigration New Zealand's current processing volumes. Work visas are often decided in weeks to a few months; residence applications can take considerably longer. In your strategy plan we give you a realistic timeline for your specific pathway, and we keep you updated as your application moves.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can my partner and children come with me? <span class="chev">+</span></summary>
+        <div class="answer">In many cases, yes. Most work and residence pathways allow you to include or support a partner and dependent children, each with their own visa application. We plan the whole family's applications together so everyone's status lines up.</div>
+      </details>
+    </div>
+
+    <div class="faq-group">
+      <h2>Working with PPIM</h2>
+      <details class="faq-item">
+        <summary>Why use a licensed adviser instead of applying myself? <span class="chev">+</span></summary>
+        <div class="answer">You can absolutely apply on your own. People come to us because immigration instructions change frequently, the evidence standards are unforgiving, and a declined application costs time, money and sometimes future options. A licensed adviser gets the strategy and the paperwork right the first time — and is legally accountable for the advice they give.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What does "IAA licensed" actually mean? <span class="chev">+</span></summary>
+        <div class="answer">In New Zealand it is illegal to give immigration advice unless you are licensed by the Immigration Advisers Authority (IAA) or are exempt, such as NZ lawyers. Licensing means our advisers meet ongoing competency standards, follow a professional code of conduct, and you have a formal complaints process if anything goes wrong.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How much do your services cost? <span class="chev">+</span></summary>
+        <div class="answer">It depends on the visa type and complexity of your case. What we promise: a fixed fee quoted in writing before any work begins, with no hourly billing and no surprise charges. Government application fees are always listed separately so you can see exactly where your money goes.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can you help if I'm not in New Zealand yet? <span class="chev">+</span></summary>
+        <div class="answer">Yes — most of our clients are overseas when we start working together. Consultations run over video call across time zones, and documents are handled securely online. You don't need to set foot in New Zealand until your visa says you can.</div>
+      </details>
+    </div>
+
+    <div class="faq-group">
+      <h2>Applications &amp; outcomes</h2>
+      <details class="faq-item">
+        <summary>What happens if my application is declined? <span class="chev">+</span></summary>
+        <div class="answer">First, we work hard to make sure it isn't — we don't lodge applications we believe will fail. If a decline does happen, options can include responding to concerns, requesting reconsideration, appealing to the Immigration and Protection Tribunal, or reapplying under a stronger strategy. We'll advise you frankly on which is worth pursuing.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Will a medical condition or past conviction stop me? <span class="chev">+</span></summary>
+        <div class="answer">Not necessarily. New Zealand has health and character requirements, but waivers exist for many situations. The key is disclosing everything honestly and presenting it properly — concealment is far more damaging than the issue itself. Tell us early and we'll assess how it affects your options.</div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I eventually become a permanent resident or citizen? <span class="chev">+</span></summary>
+        <div class="answer">Residence is usually the first milestone. After holding residence and meeting time-in-country requirements, you can apply for permanent residence, and later for citizenship — generally after five years of living in New Zealand as a resident. We plan with the long game in mind from your very first visa.</div>
+      </details>
+    </div>
+
+    <div class="faq-cta">
+      <h3>Still have a question?</h3>
+      <p>Every situation is different, and generic answers only go so far. Ask us yours.</p>
+      <a class="btn btn-solid" href="contact.html">Get in touch <span class="arrow">→</span></a>
+    </div>
+
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <div class="brand" style="gap:12px">
+          <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="23" fill="#0F3527"/>
+            <path d="M24 38 C14 38 10 30 12 23 C14 16 21 13 26 15 C31 17 32 23 29 26 C26 29 21 28 21 24 C21 21 24 20 25.5 22" stroke="#D9A521" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span class="brand-name">PPIM <span style="color:#7FB89F">Consulting</span></span>
+        </div>
+        <p>Licensed immigration advisers helping people and employers find their way to Aotearoa New Zealand.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Skilled migrant residence</a></li>
+          <li><a href="services.html">Work visas</a></li>
+          <li><a href="services.html">Partnership &amp; family</a></li>
+          <li><a href="services.html">Student pathways</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ppimconsulting.co.nz">info@ppimconsulting.co.nz</a></li>
+          <li><a href="tel:+642102355670">+64 21 0235 5670</a></li>
+          <li><a href="contact.html">155 Smales Road,<br>East Tāmaki, Auckland 2013</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 PPIM Consulting Ltd. All advisers licensed by the Immigration Advisers Authority (IAA).</span>
+      <span>Kia ora · Welcome · Haere mai</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

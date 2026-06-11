@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — PPIM Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Figtree:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF7;
+  --ink:#16211B;
+  --ink-soft:#46544C;
+  --pounamu:#11402F;
+  --pounamu-deep:#0B2C20;
+  --kowhai:#D9A521;
+  --mist:#E5EDE7;
+  --line:rgba(22,33,27,.14);
+  --radius:14px;
+  --display:"Bricolage Grotesque",Georgia,serif;
+  --body:"Figtree",system-ui,sans-serif;
+  --mono:"Spline Sans Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;font-size:17px}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--pounamu);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:1.5px;background:var(--kowhai)}
+h1,h2,h3{font-family:var(--display);line-height:1.08;letter-spacing:-.015em;font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:16px;padding:14px 26px;border-radius:999px;border:1.5px solid var(--pounamu);transition:all .2s ease;cursor:pointer}
+.btn-solid{background:var(--pounamu);color:#fff}
+.btn-solid:hover{background:var(--pounamu-deep);border-color:var(--pounamu-deep);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--pounamu)}
+.btn-ghost:hover{background:var(--mist)}
+.btn .arrow{transition:transform .2s ease}
+.btn:hover .arrow{transform:translateX(3px)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2.5px solid var(--kowhai);outline-offset:3px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,250,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:38px;height:38px}
+.brand-name{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:-.01em}
+.brand-name span{color:var(--pounamu)}
+.nav-links{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-links a{font-weight:500;font-size:15.5px;padding:9px 15px;border-radius:999px;color:var(--ink-soft);transition:all .15s ease}
+.nav-links a:hover{color:var(--ink);background:var(--mist)}
+.nav-links a.cta{margin-left:8px;background:var(--pounamu);color:#fff;font-weight:600}
+.nav-links a.cta:hover{background:var(--pounamu-deep)}
+body[data-page="home"]     a[data-link="home"],
+body[data-page="services"] a[data-link="services"],
+body[data-page="faq"]      a[data-link="faq"],
+body[data-page="contact"]  a[data-link="contact"]{color:var(--pounamu);font-weight:600;background:var(--mist)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
+.nav-toggle svg{width:26px;height:26px;stroke:var(--ink)}
+@media (max-width:840px){
+  .nav-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:74px;left:0;right:0;background:var(--paper);flex-direction:column;align-items:stretch;padding:14px 24px 22px;gap:4px;border-bottom:1px solid var(--line);box-shadow:0 18px 30px -18px rgba(11,44,32,.25)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:13px 16px}
+  .nav-links a.cta{margin:8px 0 0;text-align:center;justify-content:center}
+}
+
+/* ---------- shared sections ---------- */
+.section{padding:96px 0}
+.section.tight{padding:72px 0}
+.section-head{max-width:640px;margin-bottom:52px}
+.section-head h2{font-size:clamp(30px,4vw,42px);margin:14px 0 14px}
+.section-head p{color:var(--ink-soft);font-size:18px}
+.page-hero{padding:84px 0 64px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.page-hero h1{font-size:clamp(38px,5.5vw,58px);margin:16px 0 18px;max-width:760px}
+.page-hero p.lede{font-size:19px;color:var(--ink-soft);max-width:620px}
+.koru-bg{position:absolute;right:-60px;top:-40px;width:380px;opacity:.10;pointer-events:none}
+@media (max-width:700px){.koru-bg{width:240px;right:-80px}}
+
+/* ---------- footer ---------- */
+footer{background:var(--pounamu-deep);color:#E9F1EC;margin-top:40px}
+.foot-inner{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding:64px 0 48px}
+.foot-inner .brand-name{color:#fff}
+.foot-inner p{color:#A9C0B4;font-size:15px;margin-top:14px;max-width:300px}
+.foot-col h4{font-family:var(--mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--kowhai);margin-bottom:18px;font-weight:500}
+.foot-col ul{list-style:none}
+.foot-col li{margin-bottom:11px}
+.foot-col a{color:#C9D9D0;font-size:15.5px;transition:color .15s}
+.foot-col a:hover{color:#fff}
+.foot-base{border-top:1px solid rgba(233,241,236,.15);padding:22px 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13.5px;color:#8FA89C}
+@media (max-width:840px){.foot-inner{grid-template-columns:1fr 1fr;gap:32px}}
+@media (max-width:520px){.foot-inner{grid-template-columns:1fr}}
+
+/* ---------- services ---------- */
+.svc-list{display:grid;gap:26px;margin-top:8px}
+.svc-row{display:grid;grid-template-columns:64px 1fr auto;gap:28px;align-items:start;border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:34px 32px;transition:border-color .2s ease, box-shadow .2s ease}
+.svc-row:hover{border-color:var(--pounamu);box-shadow:0 16px 34px -24px rgba(11,44,32,.35)}
+.svc-row .icon{width:56px;height:56px;border-radius:14px;background:var(--mist);display:grid;place-items:center}
+.svc-row .icon svg{width:27px;height:27px;stroke:var(--pounamu)}
+.svc-row h3{font-size:23px;margin-bottom:8px}
+.svc-row p{color:var(--ink-soft);font-size:16px;max-width:640px}
+.svc-row ul{margin:14px 0 0;padding-left:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.svc-row li{font-family:var(--mono);font-size:12px;letter-spacing:.04em;background:var(--mist);color:var(--pounamu);padding:6px 12px;border-radius:999px}
+.svc-row .side{align-self:center}
+@media (max-width:760px){.svc-row{grid-template-columns:1fr}.svc-row .side{align-self:start}}
+.fees-note{margin-top:48px;border:1.5px dashed var(--kowhai);border-radius:var(--radius);padding:26px 30px;background:#FFFDF4;display:flex;gap:16px;align-items:flex-start}
+.fees-note strong{font-family:var(--display);font-size:18px;display:block;margin-bottom:4px}
+.fees-note p{color:var(--ink-soft);font-size:15.5px}
+.fees-note .gold{color:var(--kowhai);font-size:24px;line-height:1}
+</style>
+</head>
+<body data-page="services">
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="PPIM Consulting home">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="23" fill="#11402F"/>
+        <path d="M24 38 C14 38 10 30 12 23 C14 16 21 13 26 15 C31 17 32 23 29 26 C26 29 21 28 21 24 C21 21 24 20 25.5 22" stroke="#D9A521" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="brand-name">PPIM <span>Consulting</span></span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" onclick="const l=document.querySelector('.nav-links');const o=l.classList.toggle('open');this.setAttribute('aria-expanded',o)">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a data-link="home" href="index.html">Home</a></li>
+      <li><a data-link="services" href="services.html">Services</a></li>
+      <li><a data-link="faq" href="faq.html">FAQ</a></li>
+      <li><a data-link="contact" href="contact.html">Contact</a></li>
+      <li><a class="cta" href="contact.html">Book a consultation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <svg class="koru-bg" viewBox="0 0 320 320" fill="none" aria-hidden="true">
+    <path d="M160 290 C70 290 28 216 41 152 C54 88 120 56 170 72 C220 88 236 144 210 178 C184 212 131 204 126 162 C122 130 150 116 168 132" stroke="#11402F" stroke-width="10" stroke-linecap="round"/>
+  </svg>
+  <div class="wrap">
+    <p class="eyebrow">Our services</p>
+    <h1>Every visa pathway to New Zealand, under one roof</h1>
+    <p class="lede">Whether you're moving for work, love, study or business, our licensed advisers match you to the right pathway and carry the application from start to decision.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <div class="svc-list">
+
+      <article class="svc-row">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M9 7V5a3 3 0 0 1 6 0v2M4 7h16l-1 13H5L4 7z"/></svg></div>
+        <div>
+          <h3>Skilled Migrant Category residence</h3>
+          <p>New Zealand's main residence pathway for qualified professionals and skilled tradespeople. We calculate your points, identify how to strengthen your claim, and manage your Expression of Interest and residence application end to end.</p>
+          <ul><li>Points assessment</li><li>EOI lodgement</li><li>Residence application</li></ul>
+        </div>
+        <div class="side"><a class="btn btn-ghost" href="contact.html">Check eligibility</a></div>
+      </article>
+
+      <article class="svc-row">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div>
+        <div>
+          <h3>Accredited Employer Work Visa (AEWV)</h3>
+          <p>The standard work visa for people with a job offer from an accredited NZ employer. We coordinate with your employer, verify the job check, and prepare a complete, well-evidenced application — minimising back-and-forth with Immigration NZ.</p>
+          <ul><li>Job offer review</li><li>Visa application</li><li>Condition variations</li></ul>
+        </div>
+        <div class="side"><a class="btn btn-ghost" href="contact.html">Check eligibility</a></div>
+      </article>
+
+      <article class="svc-row">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 21s-7-4.6-9.5-9A5.5 5.5 0 0 1 12 6.6 5.5 5.5 0 0 1 21.5 12c-2.5 4.4-9.5 9-9.5 9z"/></svg></div>
+        <div>
+          <h3>Partnership &amp; family visas</h3>
+          <p>Join a partner, parent or child who lives in New Zealand. Relationship-based applications live or die on evidence, so we build your file to the exact standard Immigration NZ case officers expect — before it's ever lodged.</p>
+          <ul><li>Partner work &amp; residence visas</li><li>Dependent child visas</li><li>Parent category</li></ul>
+        </div>
+        <div class="side"><a class="btn btn-ghost" href="contact.html">Check eligibility</a></div>
+      </article>
+
+      <article class="svc-row">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M22 9 12 4 2 9l10 5 10-5zM6 11.5V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/></svg></div>
+        <div>
+          <h3>Student visas &amp; study-to-work pathways</h3>
+          <p>Study in New Zealand with a plan for what comes after. We help you choose qualifications that lead somewhere — pairing your student visa with a realistic route to post-study work and, eventually, residence.</p>
+          <ul><li>Student visa</li><li>Post-study work visa</li><li>Pathway planning</li></ul>
+        </div>
+        <div class="side"><a class="btn btn-ghost" href="contact.html">Check eligibility</a></div>
+      </article>
+
+      <article class="svc-row">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v20M17 7H9.5a2.5 2.5 0 0 0 0 5h5a2.5 2.5 0 0 1 0 5H6"/></svg></div>
+        <div>
+          <h3>Investor &amp; business migration</h3>
+          <p>Residence through investment or entrepreneurship. We advise on the Active Investor Plus category and business visa options, working alongside your legal and financial advisers to structure a compliant application.</p>
+          <ul><li>Active Investor Plus</li><li>Entrepreneur pathways</li><li>Strategy advice</li></ul>
+        </div>
+        <div class="side"><a class="btn btn-ghost" href="contact.html">Check eligibility</a></div>
+      </article>
+
+      <article class="svc-row">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M12 22a10 10 0 1 0-10-10 10 10 0 0 0 10 10zM8.5 12.5l2.5 2.5 4.5-5"/></svg></div>
+        <div>
+          <h3>Employer accreditation &amp; compliance</h3>
+          <p>For New Zealand businesses hiring international talent. We manage your accreditation, run job checks, and keep your obligations in order so recruitment from overseas stays fast and compliant.</p>
+          <ul><li>Employer accreditation</li><li>Job checks</li><li>Ongoing compliance</li></ul>
+        </div>
+        <div class="side"><a class="btn btn-ghost" href="contact.html">Talk to us</a></div>
+      </article>
+
+    </div>
+
+    <div class="fees-note">
+      <span class="gold">◆</span>
+      <div>
+        <strong>Fixed fees, agreed upfront</strong>
+        <p>Every engagement starts with a written agreement setting out exactly what we'll do and what it costs — as required by the Immigration Advisers Authority. No hourly surprises, ever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap cta-inner">
+    <h2>Not sure which pathway fits? That's what the first call is for.</h2>
+    <a class="btn btn-solid" href="contact.html">Book a free consultation <span class="arrow">→</span></a>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <div class="brand" style="gap:12px">
+          <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <circle cx="24" cy="24" r="23" fill="#0F3527"/>
+            <path d="M24 38 C14 38 10 30 12 23 C14 16 21 13 26 15 C31 17 32 23 29 26 C26 29 21 28 21 24 C21 21 24 20 25.5 22" stroke="#D9A521" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span class="brand-name">PPIM <span style="color:#7FB89F">Consulting</span></span>
+        </div>
+        <p>Licensed immigration advisers helping people and employers find their way to Aotearoa New Zealand.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html">Skilled migrant residence</a></li>
+          <li><a href="services.html">Work visas</a></li>
+          <li><a href="services.html">Partnership &amp; family</a></li>
+          <li><a href="services.html">Student pathways</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:info@ppimconsulting.co.nz">info@ppimconsulting.co.nz</a></li>
+          <li><a href="tel:+642102355670">+64 21 0235 5670</a></li>
+          <li><a href="contact.html">155 Smales Road,<br>East Tāmaki, Auckland 2013</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>© 2026 PPIM Consulting Ltd. All advisers licensed by the Immigration Advisers Authority (IAA).</span>
+      <span>Kia ora · Welcome · Haere mai</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
