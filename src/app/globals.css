@@ -84,13 +84,11 @@
   --radius-card: var(--radius-card);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #081420;
-    --foreground: #edf2f7;
-    --color-cream: #0d1d2e;
-    --color-cream-100: #142a40;
-  }
+/* The site uses one designed palette in all conditions. Declaring the
+   light scheme stops iOS/Android dark mode from recoloring anything
+   (a previous dark-mode remap made cream text invisible on navy). */
+:root {
+  color-scheme: light only;
 }
 
 * {
