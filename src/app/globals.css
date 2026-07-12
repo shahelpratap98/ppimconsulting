@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+:root {
+  --background: #faf8f3;
+  --foreground: #0d1d2e;
+
+  /* Navy — trust, authority */
+  --color-navy-50: #eef3f8;
+  --color-navy-100: #dce7f1;
+  --color-navy-200: #b7cee0;
+  --color-navy-300: #8fb1cb;
+  --color-navy-400: #5d8bae;
+  --color-navy-500: #3a6690;
+  --color-navy-600: #2a4e70;
+  --color-navy-700: #1d3a56;
+  --color-navy-800: #142a40;
+  --color-navy-900: #0d1d2e;
+  --color-navy-950: #081420;
+
+  /* Gold — aspiration, warmth */
+  --color-gold-50: #fbf6ea;
+  --color-gold-100: #f5eacb;
+  --color-gold-200: #e9d28f;
+  --color-gold-300: #ddbb63;
+  --color-gold-400: #d0a43f;
+  --color-gold-500: #c08f2c;
+  --color-gold-600: #a0741e;
+  --color-gold-700: #7c5916;
+  --color-gold-800: #5c4110;
+  --color-gold-900: #3e2b0a;
+
+  /* Fern — verified / success, subtle NZ nod */
+  --color-fern-50: #eaf5ef;
+  --color-fern-400: #4a9670;
+  --color-fern-500: #2f6f4e;
+  --color-fern-600: #245a3e;
+  --color-fern-700: #1b432f;
+
+  --color-cream: #faf8f3;
+  --color-cream-100: #f3efe4;
+
+  --radius-card: 1rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-navy-50: var(--color-navy-50);
+  --color-navy-100: var(--color-navy-100);
+  --color-navy-200: var(--color-navy-200);
+  --color-navy-300: var(--color-navy-300);
+  --color-navy-400: var(--color-navy-400);
+  --color-navy-500: var(--color-navy-500);
+  --color-navy-600: var(--color-navy-600);
+  --color-navy-700: var(--color-navy-700);
+  --color-navy-800: var(--color-navy-800);
+  --color-navy-900: var(--color-navy-900);
+  --color-navy-950: var(--color-navy-950);
+
+  --color-gold-50: var(--color-gold-50);
+  --color-gold-100: var(--color-gold-100);
+  --color-gold-200: var(--color-gold-200);
+  --color-gold-300: var(--color-gold-300);
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-600: var(--color-gold-600);
+  --color-gold-700: var(--color-gold-700);
+  --color-gold-800: var(--color-gold-800);
+  --color-gold-900: var(--color-gold-900);
+
+  --color-fern-50: var(--color-fern-50);
+  --color-fern-400: var(--color-fern-400);
+  --color-fern-500: var(--color-fern-500);
+  --color-fern-600: var(--color-fern-600);
+  --color-fern-700: var(--color-fern-700);
+
+  --color-cream: var(--color-cream);
+  --color-cream-100: var(--color-cream-100);
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+
+  --radius-card: var(--radius-card);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #081420;
+    --foreground: #edf2f7;
+    --color-cream: #0d1d2e;
+    --color-cream-100: #142a40;
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display), serif;
+}
+
+.container-page {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .container-page {
+    padding-inline: 2.5rem;
+  }
+}
+
+.text-balance {
+  text-wrap: balance;
+}
