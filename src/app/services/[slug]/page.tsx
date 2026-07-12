@@ -9,6 +9,7 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/AnimatedSection";
+import { Reveal } from "@/components/Reveal";
 import { services } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -44,7 +45,7 @@ export default async function ServiceDetailPage({
     <>
       <section className="relative overflow-hidden bg-navy-950 py-24 text-cream md:py-32">
         <div className="container-page relative grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
-          <AnimatedSection className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500/15 text-gold-400">
               <service.icon size={28} weight="duotone" />
             </div>
@@ -63,9 +64,9 @@ export default async function ServiceDetailPage({
                 <ArrowRight size={18} weight="bold" />
               </Button>
             </div>
-          </AnimatedSection>
+          </Reveal>
 
-          <AnimatedSection delay={0.1} className="md:pb-2">
+          <Reveal delay={0.1} className="md:pb-2">
             <ul className="space-y-3">
               {service.heroPoints.map((point) => (
                 <li
@@ -77,7 +78,7 @@ export default async function ServiceDetailPage({
                 </li>
               ))}
             </ul>
-          </AnimatedSection>
+          </Reveal>
         </div>
       </section>
 

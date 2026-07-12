@@ -7,6 +7,7 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/AnimatedSection";
+import { Reveal } from "@/components/Reveal";
 import { services } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function ServicesPage() {
     <>
       <section className="bg-navy-950 py-24 text-cream md:py-32">
         <div className="container-page">
-          <AnimatedSection className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-400">
               Our Services
             </span>
@@ -33,7 +34,7 @@ export default function ServicesPage() {
               circumstances — from your first Expression of Interest to your
               final residence approval.
             </p>
-          </AnimatedSection>
+          </Reveal>
         </div>
       </section>
 

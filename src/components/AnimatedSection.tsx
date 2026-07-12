@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 
 const variants: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -11,6 +11,17 @@ const variants: Variants = {
     transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
   },
 };
+
+/** Marks <html> as hydrated so the CSS reveal failsafe stands down. */
+function useMarkHydrated() {
+  useEffect(() => {
+    document.documentElement.setAttribute("data-hydrated", "");
+  }, []);
+}
+
+function withReveal(className?: string) {
+  return className ? `motion-reveal ${className}` : "motion-reveal";
+}
 
 export function AnimatedSection({
   children,
@@ -23,10 +34,11 @@ export function AnimatedSection({
   delay?: number;
   as?: "div" | "section";
 }) {
+  useMarkHydrated();
   const MotionTag = as === "section" ? motion.section : motion.div;
   return (
     <MotionTag
-      className={className}
+      className={withReveal(className)}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
@@ -47,6 +59,7 @@ export function Stagger({
   className?: string;
   staggerDelay?: number;
 }) {
+  useMarkHydrated();
   return (
     <motion.div
       className={className}
@@ -73,7 +86,7 @@ export function StaggerItem({
   className?: string;
 }) {
   return (
-    <motion.div className={className} variants={variants}>
+    <motion.div className={withReveal(className)} variants={variants}>
       {children}
     </motion.div>
   );

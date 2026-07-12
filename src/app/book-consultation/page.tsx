@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Calendar, Clock, ShieldCheck, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import { ConsultationForm } from "@/components/ConsultationForm";
-import { AnimatedSection } from "@/components/AnimatedSection";
+import { Reveal } from "@/components/Reveal";
 import { companyInfo } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default function BookConsultationPage() {
   return (
     <section className="py-20 md:py-28">
       <div className="container-page grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-        <AnimatedSection>
+        <Reveal>
           <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-600">
             Book a Consultation
           </span>
@@ -70,13 +70,13 @@ export default function BookConsultationPage() {
             <WhatsappLogo size={20} weight="fill" className="text-[#25D366]" />
             Prefer to chat now? Message us on WhatsApp
           </a>
-        </AnimatedSection>
+        </Reveal>
 
-        <AnimatedSection delay={0.1}>
+        <Reveal delay={0.1}>
           <div className="rounded-card border border-navy-900/10 bg-white/70 p-6 shadow-[0_20px_60px_-20px_rgba(13,29,46,0.15)] md:p-9">
             <ConsultationForm />
           </div>
-        </AnimatedSection>
+        </Reveal>
       </div>
     </section>
   );

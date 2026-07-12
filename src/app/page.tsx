@@ -16,6 +16,7 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/AnimatedSection";
+import { Reveal } from "@/components/Reveal";
 import { services, testimonials, stats, companyInfo } from "@/lib/data";
 
 const whyUs = [
@@ -66,22 +67,22 @@ export default function Home() {
 
         <div className="container-page relative py-28 md:py-36">
           <div className="max-w-2xl">
-            <AnimatedSection>
+            <Reveal>
               <div className="inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/10 px-4 py-1.5 text-xs font-medium text-gold-300">
                 <ShieldCheck size={16} weight="fill" />
                 IAA Licensed Immigration Adviser &middot; Auckland, NZ
               </div>
-            </AnimatedSection>
+            </Reveal>
 
-            <AnimatedSection delay={0.08}>
+            <Reveal delay={0.08}>
               <h1 className="mt-6 text-balance font-display text-4xl leading-[1.1] md:text-6xl">
                 Your pathway to{" "}
                 <span className="italic text-gold-400">New Zealand</span>{" "}
                 starts with clear advice.
               </h1>
-            </AnimatedSection>
+            </Reveal>
 
-            <AnimatedSection delay={0.16}>
+            <Reveal delay={0.16}>
               <p className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-cream/70">
                 PPIM Consulting is an Auckland-based immigration consultancy
                 — with offices in Nadi and Suva, Fiji — helping skilled
@@ -89,9 +90,9 @@ export default function Home() {
                 genuine future in New Zealand, with licensed advice you can
                 trust.
               </p>
-            </AnimatedSection>
+            </Reveal>
 
-            <AnimatedSection delay={0.24}>
+            <Reveal delay={0.24}>
               <div className="mt-9 flex flex-wrap items-center gap-4">
                 <Button href="/book-consultation" size="lg">
                   Book a Free Consultation
@@ -106,7 +107,7 @@ export default function Home() {
                   Explore visa pathways
                 </Button>
               </div>
-            </AnimatedSection>
+            </Reveal>
           </div>
         </div>
       </section>

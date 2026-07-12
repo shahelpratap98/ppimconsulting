@@ -7,6 +7,7 @@ import {
   WhatsappLogo,
 } from "@phosphor-icons/react/dist/ssr";
 import { AnimatedSection, Stagger, StaggerItem } from "@/components/AnimatedSection";
+import { Reveal } from "@/components/Reveal";
 import { Button } from "@/components/Button";
 import { companyInfo } from "@/lib/data";
 
@@ -42,7 +43,7 @@ export default function ContactPage() {
     <>
       <section className="bg-navy-950 py-24 text-cream md:py-32">
         <div className="container-page">
-          <AnimatedSection className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-400">
               Contact
             </span>
@@ -53,7 +54,7 @@ export default function ContactPage() {
               Visit our Auckland office, call, email, or message us on
               WhatsApp — whichever is easiest for you.
             </p>
-          </AnimatedSection>
+          </Reveal>
         </div>
       </section>
 

@@ -8,6 +8,7 @@ import {
   Stagger,
   StaggerItem,
 } from "@/components/AnimatedSection";
+import { Reveal } from "@/components/Reveal";
 import { team, companyInfo } from "@/lib/data";
 
 export const metadata: Metadata = {
@@ -42,7 +43,7 @@ export default function AboutPage() {
     <>
       <section className="bg-navy-950 py-24 text-cream md:py-32">
         <div className="container-page">
-          <AnimatedSection className="max-w-2xl">
+          <Reveal className="max-w-2xl">
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-400">
               About Us
             </span>
@@ -55,7 +56,7 @@ export default function AboutPage() {
               Suva, Fiji — built on the personal attention every client
               deserves.
             </p>
-          </AnimatedSection>
+          </Reveal>
         </div>
       </section>
 

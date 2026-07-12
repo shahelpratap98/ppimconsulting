@@ -136,3 +136,37 @@ h1, h2, h3, h4, .font-display {
 .text-balance {
   text-wrap: balance;
 }
+
+/* CSS-only entrance reveal — plays without JavaScript, so above-the-fold
+   content is never left hidden in throttled/in-app browsers. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-css {
+  opacity: 0;
+  animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+/* Failsafe for JS-driven scroll reveals: if React never hydrates
+   (blocked or failed JavaScript), force content visible instead of
+   leaving it stuck at opacity 0. The data-hydrated attribute is set
+   on <html> as soon as the animation components mount. */
+@keyframes reveal-failsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html:not([data-hydrated]) .motion-reveal {
+  animation: reveal-failsafe 0.6s ease 1.5s forwards;
+}
