@@ -5,6 +5,7 @@ import {
   Buildings,
   GraduationCap,
   HeartStraight,
+  SuitcaseRolling,
 } from "@phosphor-icons/react/dist/ssr";
 
 export type VisaService = {
@@ -135,6 +136,49 @@ export const services: VisaService[] = [
     ],
   },
   {
+    slug: "visitor-visa",
+    name: "Visitor Visa",
+    shortName: "Visitor Visa",
+    tagline: "Visit New Zealand for a holiday, family or a look before you leap.",
+    icon: SuitcaseRolling,
+    summary:
+      "Whether you're visiting family, exploring New Zealand, or scoping out a future move, we make sure your visitor visa application is complete, credible and lodged right the first time.",
+    heroPoints: [
+      "Genuine intent & ties evidence",
+      "Funds and sponsorship guidance",
+      "Family visit & multiple-entry support",
+    ],
+    eligibility: [
+      "A genuine intention to visit New Zealand temporarily",
+      "Sufficient funds for your stay, or an approved sponsor",
+      "Onward or return travel arrangements",
+      "Health and character requirements met",
+    ],
+    process: [
+      { title: "Free initial assessment", description: "We review your travel purpose, ties to home and funds to confirm the right visitor pathway." },
+      { title: "Evidence preparation", description: "We help you gather funds, sponsorship, accommodation and travel evidence that stands up to scrutiny." },
+      { title: "Application & lodgement", description: "We lodge your complete application and respond to any requests from Immigration New Zealand." },
+      { title: "Visa grant & travel", description: "We confirm your visa conditions, allowed stay and any multiple-entry provisions before you fly." },
+    ],
+    faqs: [
+      {
+        question: "How long can I stay on a visitor visa?",
+        answer:
+          "Most visitors can stay up to several months at a time, with overall limits over an 18-month period. We confirm the current allowances for your situation in your consultation.",
+      },
+      {
+        question: "Can family in New Zealand sponsor my visit?",
+        answer:
+          "Yes — a New Zealand citizen or resident family member can often act as a sponsor, covering accommodation or funds requirements. We prepare the sponsorship forms with them.",
+      },
+      {
+        question: "Can I switch to a work or student visa while visiting?",
+        answer:
+          "In many cases you can apply for a different visa from within New Zealand. We plan this pathway with you before you arrive so nothing is left to chance.",
+      },
+    ],
+  },
+  {
     slug: "partner-family-visa",
     name: "Partner & Family Visa",
     shortName: "Partner & Family",
@@ -232,9 +276,9 @@ export const testimonials = [
 ];
 
 export const stats = [
-  { value: 1200, suffix: "+", label: "Visas successfully lodged" },
+  { value: 8000, suffix: "+", label: "Visas successfully lodged" },
   { value: 98, suffix: "%", label: "Client satisfaction rating" },
-  { value: 15, suffix: "+", label: "Years of combined experience" },
+  { value: 15, suffix: "+", label: "Years of experience — since 2011" },
   { value: 30, suffix: "+", label: "Countries of origin represented" },
 ];
 
@@ -242,8 +286,9 @@ export const team = [
   {
     name: "Priya Pratap",
     role: "Founder & Licensed Immigration Adviser",
-    license: "IAA Licensed Immigration Adviser",
-    bio: "Priya leads every case personally — from skilled migrant and work visas to partnership and family applications — serving clients across New Zealand and Fiji.",
+    license: "IAA License No. 201100160",
+    licenseAu: "Registered Migration Agent, Australia — MARN 2217960",
+    bio: "Priya leads every case personally — from skilled migrant and work visas to partnership and family applications — serving clients across New Zealand, Australia and Fiji.",
   },
 ];
 
@@ -257,8 +302,9 @@ export const companyInfo = {
   name: "PPIM Consulting",
   fullName: "Priya Pratap Immigration Consulting",
   legalLine:
-    "Priya Pratap Immigration Consulting (PPIM Consulting) is licensed by the Immigration Advisers Authority (IAA).",
-  license: "IAA Licensed Immigration Adviser",
+    "Priya Pratap Immigration Consulting (PPIM Consulting) is licensed by the Immigration Advisers Authority (IAA License No. 201100160) and is a Registered Migration Agent in Australia (MARN 2217960).",
+  license: "IAA License No. 201100160",
+  licenseAu: "Registered Migration Agent, Australia — MARN 2217960",
   address: "155 Smales Road, East Tāmaki, Auckland, New Zealand",
   fijiOffices: "Fiji offices in Nadi and Suva",
   phone: "+64 21 120 8592",

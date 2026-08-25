@@ -78,22 +78,36 @@ export default function AboutPage() {
               </p>
               <p>
                 Priya holds a current license with the Immigration Advisers
-                Authority (IAA) and is personally accountable for the advice
-                she gives. From our Auckland office and our Fiji offices in
-                Nadi and Suva, we manage residence, work, student,
-                partnership and investor cases for clients across the
-                Pacific and beyond.
+                Authority (IAA) and is also a Registered Migration Agent in
+                Australia — personally accountable for the advice she gives
+                on both sides of the Tasman. From our Auckland office and
+                our Fiji offices in Nadi and Suva, we manage residence,
+                work, student, visitor, partnership and investor cases for
+                clients across the Pacific and beyond.
               </p>
             </div>
-            <div className="mt-8 flex items-center gap-3 rounded-2xl border border-fern-500/20 bg-fern-50 px-5 py-4 w-fit">
-              <ShieldCheck size={24} weight="fill" className="text-fern-600 shrink-0" />
-              <div>
-                <p className="text-sm font-semibold text-fern-700">
-                  {companyInfo.license}
-                </p>
-                <p className="text-xs text-fern-700/70">
-                  Verifiable on the Immigration Advisers Authority register.
-                </p>
+            <div className="mt-8 space-y-3">
+              <div className="flex items-center gap-3 rounded-2xl border border-fern-500/20 bg-fern-50 px-5 py-4 w-fit">
+                <ShieldCheck size={24} weight="fill" className="text-fern-600 shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-fern-700">
+                    {companyInfo.license}
+                  </p>
+                  <p className="text-xs text-fern-700/70">
+                    Verifiable on the Immigration Advisers Authority register.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 rounded-2xl border border-fern-500/20 bg-fern-50 px-5 py-4 w-fit">
+                <ShieldCheck size={24} weight="fill" className="text-fern-600 shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-fern-700">
+                    {companyInfo.licenseAu}
+                  </p>
+                  <p className="text-xs text-fern-700/70">
+                    Verifiable on the Office of the MARA register.
+                  </p>
+                </div>
               </div>
             </div>
           </AnimatedSection>
@@ -185,9 +199,15 @@ export default function AboutPage() {
                 <p className="mt-3 text-sm leading-relaxed text-navy-700/70">
                   {member.bio}
                 </p>
-                <div className="mt-4 flex items-center gap-2 text-xs text-fern-600">
-                  <ShieldCheck size={16} weight="fill" />
-                  {member.license}
+                <div className="mt-4 space-y-1.5">
+                  <div className="flex items-center gap-2 text-xs text-fern-600">
+                    <ShieldCheck size={16} weight="fill" />
+                    {member.license}
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-fern-600">
+                    <ShieldCheck size={16} weight="fill" />
+                    {member.licenseAu}
+                  </div>
                 </div>
                 <div className="mt-4 space-y-1 border-t border-navy-900/10 pt-4 text-sm">
                   <a

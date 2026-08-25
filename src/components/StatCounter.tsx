@@ -16,7 +16,9 @@ export function StatCounter({
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, { damping: 30, stiffness: 60 });
-  const [display, setDisplay] = useState(0);
+  // Start at the real value so the number is correct even if JS never runs;
+  // the spring animates it up from 0 once the counter scrolls into view.
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
     if (inView) motionValue.set(value);
@@ -33,7 +35,7 @@ export function StatCounter({
         ref={ref}
         className="font-display text-4xl md:text-5xl text-navy-900 tabular-nums"
       >
-        {display}
+        {display.toLocaleString("en-NZ")}
         {suffix}
       </span>
       <p className="mt-2 text-sm text-navy-700/70">{label}</p>

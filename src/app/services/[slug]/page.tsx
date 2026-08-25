@@ -157,7 +157,7 @@ export default async function ServiceDetailPage({
             />
           </AnimatedSection>
 
-          <Stagger className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Stagger className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {otherServices.map((s) => (
               <StaggerItem key={s.slug}>
                 <a

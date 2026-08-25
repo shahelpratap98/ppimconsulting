@@ -42,3 +42,15 @@ next-env.d.ts
 
 # claude code local config
 .claude/
+
+# sibling project folders (separate projects, not part of this site)
+/Green bin/
+/Jai Civil/
+/MR SONS/
+/PSK Cars/
+/Smart IT/
+/bsmart eco/
+/canopy property/
+/coolmaster-app/
+/kinder/
+/stable-structure/
