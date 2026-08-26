@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   title: "Contact Us",
   description:
     "Contact PPIM Consulting — licensed immigration adviser at 155 Smales Road, Auckland, New Zealand, with offices in Nadi and Suva, Fiji.",
+  openGraph: {
+    title: "Contact Us | PPIM Consulting",
+    description:
+      "Call, email, WhatsApp or visit our Auckland office — licensed immigration advice for New Zealand, Australia and Fiji.",
+  },
 };
 
 const contactMethods = [

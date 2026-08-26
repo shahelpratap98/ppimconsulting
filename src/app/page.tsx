@@ -3,6 +3,7 @@ import {
   ArrowRight,
   Check,
   Clock,
+  FacebookLogo,
   ShieldCheck,
   UsersThree,
 } from "@phosphor-icons/react/dist/ssr";
@@ -10,14 +11,13 @@ import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { StatCounter } from "@/components/StatCounter";
-import { TestimonialCard } from "@/components/TestimonialCard";
 import {
   AnimatedSection,
   Stagger,
   StaggerItem,
 } from "@/components/AnimatedSection";
 import { Reveal } from "@/components/Reveal";
-import { services, testimonials, stats, companyInfo } from "@/lib/data";
+import { services, facebookReviews, stats, companyInfo } from "@/lib/data";
 
 const whyUs = [
   {
@@ -191,24 +191,44 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Reviews */}
       <section className="py-24 md:py-32">
         <div className="container-page">
           <AnimatedSection>
             <SectionHeading
-              eyebrow="Client Stories"
+              eyebrow="Client Reviews"
               title="Real people, real pathways"
-              description="A small selection of the families and professionals we've helped settle in New Zealand."
+              description="Our clients rate their experience with us publicly on Facebook."
             />
           </AnimatedSection>
 
-          <Stagger className="mt-14 grid gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <StaggerItem key={t.name}>
-                <TestimonialCard {...t} />
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <AnimatedSection delay={0.1}>
+            <div className="mx-auto mt-14 flex max-w-3xl flex-col items-center gap-8 rounded-card border border-navy-900/10 bg-white/70 px-8 py-12 text-center md:flex-row md:justify-between md:px-12 md:text-left">
+              <div className="flex flex-col items-center gap-1 md:items-start">
+                <span className="font-display text-5xl text-navy-900 md:text-6xl">
+                  {facebookReviews.recommendPercent}%
+                </span>
+                <span className="text-sm font-medium text-navy-700/70">
+                  recommend us
+                </span>
+              </div>
+              <div className="flex flex-col items-center gap-2 md:items-start">
+                <p className="max-w-xs text-balance text-navy-700/80">
+                  {facebookReviews.reviewCount} client reviews and{" "}
+                  {facebookReviews.followers} followers on our Facebook page.
+                </p>
+                <a
+                  href={facebookReviews.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center gap-2 rounded-full bg-navy-900 px-6 py-3 text-sm font-medium text-cream transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                >
+                  <FacebookLogo size={20} weight="fill" />
+                  Read our reviews on Facebook
+                </a>
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 

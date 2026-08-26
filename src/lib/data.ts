@@ -254,26 +254,13 @@ export const services: VisaService[] = [
   },
 ];
 
-export const testimonials = [
-  {
-    name: "Priya R.",
-    origin: "India → Auckland",
-    quote:
-      "PPIM Consulting handled our Skilled Migrant application with total transparency. We always knew exactly where we stood.",
-  },
-  {
-    name: "Daniel & Sofia M.",
-    origin: "Brazil → Hamilton",
-    quote:
-      "Our partnership visa felt daunting until we sat down with the team. They made the evidence process feel manageable and human.",
-  },
-  {
-    name: "Wei C.",
-    origin: "China → Auckland",
-    quote:
-      "Clear communication at every step of our work visa and, later, our residence application. Couldn't recommend them more.",
-  },
-];
+// Live figures from the Priya Pratap Immigration Consultant Facebook page.
+export const facebookReviews = {
+  recommendPercent: 100,
+  reviewCount: 26,
+  followers: "6.6K",
+  url: "https://www.facebook.com/profile.php?id=100027702354126&sk=reviews",
+};
 
 export const stats = [
   { value: 8000, suffix: "+", label: "Visas successfully lodged" },

@@ -8,17 +8,30 @@ import {
   StaggerItem,
 } from "@/components/AnimatedSection";
 import { Reveal } from "@/components/Reveal";
+import { JsonLd } from "@/components/JsonLd";
+import { buildBreadcrumbSchema } from "@/lib/schema";
 import { services } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Visa Services",
   description:
-    "Explore our licensed immigration services in Auckland: Skilled Migrant, Work, Student, Partner & Family, and Business & Investor visas.",
+    "Explore our licensed immigration services in Auckland: Skilled Migrant, Work, Student, Visitor, Partner & Family, and Business & Investor visas.",
+  openGraph: {
+    title: "Visa Services | PPIM Consulting",
+    description:
+      "Licensed immigration services for New Zealand: Skilled Migrant, Work, Student, Visitor, Partner & Family, and Business & Investor visas.",
+  },
 };
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+        ])}
+      />
       <section className="bg-navy-950 py-24 text-cream md:py-32">
         <div className="container-page">
           <Reveal className="max-w-2xl">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Plus } from "@phosphor-icons/react/dist/ssr";
 
 export function FaqAccordion({
@@ -17,35 +17,35 @@ export function FaqAccordion({
         const isOpen = openIndex === i;
         return (
           <div key={item.question}>
-            <button
-              className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
-              onClick={() => setOpenIndex(isOpen ? null : i)}
-              aria-expanded={isOpen}
-            >
-              <span className="font-medium text-navy-900">{item.question}</span>
-              <motion.span
-                animate={{ rotate: isOpen ? 45 : 0 }}
-                transition={{ duration: 0.2 }}
-                className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-navy-900/5 text-navy-900"
+            {/* Question is a real heading; answer stays in the server-rendered
+                DOM even when collapsed so crawlers and AI systems can read it. */}
+            <h3 className="m-0 font-sans text-base">
+              <button
+                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                onClick={() => setOpenIndex(isOpen ? null : i)}
+                aria-expanded={isOpen}
               >
-                <Plus size={16} weight="bold" />
-              </motion.span>
-            </button>
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="overflow-hidden"
+                <span className="font-medium text-navy-900">{item.question}</span>
+                <motion.span
+                  animate={{ rotate: isOpen ? 45 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-navy-900/5 text-navy-900"
                 >
-                  <p className="px-6 pb-5 leading-relaxed text-navy-700/70">
-                    {item.answer}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <Plus size={16} weight="bold" />
+                </motion.span>
+              </button>
+            </h3>
+            <motion.div
+              initial={false}
+              animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="overflow-hidden"
+              aria-hidden={!isOpen}
+            >
+              <p className="px-6 pb-5 leading-relaxed text-navy-700/70">
+                {item.answer}
+              </p>
+            </motion.div>
           </div>
         );
       })}

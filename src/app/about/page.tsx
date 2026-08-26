@@ -9,12 +9,19 @@ import {
   StaggerItem,
 } from "@/components/AnimatedSection";
 import { Reveal } from "@/components/Reveal";
+import { JsonLd } from "@/components/JsonLd";
+import { buildPersonSchema, buildBreadcrumbSchema } from "@/lib/schema";
 import { team, companyInfo } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "About Us",
   description:
     "Meet PPIM Consulting — Priya Pratap Immigration Consulting, a licensed Auckland immigration advisory practice with offices in Nadi and Suva, Fiji.",
+  openGraph: {
+    title: "About Us | PPIM Consulting",
+    description:
+      "Meet Priya Pratap — licensed immigration adviser (IAA 201100160, MARN 2217960) serving New Zealand, Australia and Fiji.",
+  },
 };
 
 const values = [
@@ -41,6 +48,13 @@ const values = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={buildPersonSchema()} />
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
       <section className="bg-navy-950 py-24 text-cream md:py-32">
         <div className="container-page">
           <Reveal className="max-w-2xl">

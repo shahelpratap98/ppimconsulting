@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: "Book a Free Consultation",
   description:
     "Book a free, no-obligation consultation with a licensed immigration adviser in Auckland, New Zealand.",
+  openGraph: {
+    title: "Book a Free Consultation | PPIM Consulting",
+    description:
+      "Book a free, no-obligation consultation with a licensed immigration adviser — in person, by video call, or by phone.",
+  },
 };
 
 export default function BookConsultationPage() {

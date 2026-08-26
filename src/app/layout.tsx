@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { JsonLd } from "@/components/JsonLd";
+import { buildOrganizationSchema } from "@/lib/schema";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -33,6 +35,7 @@ export const metadata: Metadata = {
     "immigration consultant Fiji",
   ],
   metadataBase: new URL("https://www.ppimconsulting.co.nz"),
+  alternates: { canonical: "./" },
   openGraph: {
     title: "PPIM Consulting | Licensed Immigration Adviser, Auckland",
     description:
@@ -53,6 +56,7 @@ export default function RootLayout({
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <JsonLd data={buildOrganizationSchema()} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

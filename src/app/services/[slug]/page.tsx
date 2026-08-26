@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowRight, Check } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRight, Check, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { FaqAccordion } from "@/components/FaqAccordion";
@@ -10,6 +10,8 @@ import {
   StaggerItem,
 } from "@/components/AnimatedSection";
 import { Reveal } from "@/components/Reveal";
+import { JsonLd } from "@/components/JsonLd";
+import { buildServiceSchema, buildBreadcrumbSchema } from "@/lib/schema";
 import { services } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -27,6 +29,10 @@ export async function generateMetadata({
   return {
     title: service.name,
     description: service.summary,
+    openGraph: {
+      title: `${service.name} | PPIM Consulting`,
+      description: service.summary,
+    },
   };
 }
 
@@ -40,12 +46,25 @@ export default async function ServiceDetailPage({
   if (!service) notFound();
 
   const otherServices = services.filter((s) => s.slug !== service.slug);
+  const serviceSchema = buildServiceSchema(service.slug);
 
   return (
     <>
+      {serviceSchema && <JsonLd data={serviceSchema} />}
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Services", path: "/services" },
+          { name: service.name, path: `/services/${service.slug}` },
+        ])}
+      />
       <section className="relative overflow-hidden bg-navy-950 py-24 text-cream md:py-32">
         <div className="container-page relative grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
           <Reveal className="max-w-2xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/10 px-4 py-1.5 text-xs font-medium text-gold-300">
+              <ShieldCheck size={16} weight="fill" />
+              IAA License No. 201100160 &middot; MARN 2217960
+            </div>
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500/15 text-gold-400">
               <service.icon size={28} weight="duotone" />
             </div>
