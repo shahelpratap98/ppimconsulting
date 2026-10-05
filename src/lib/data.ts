@@ -262,11 +262,30 @@ export const facebookReviews = {
   url: "https://www.facebook.com/profile.php?id=100027702354126&sk=reviews",
 };
 
+/** Page-specific search descriptions, kept to 120–155 characters. */
+export const serviceMetaDescriptions: Record<string, string> = {
+  "skilled-migrant-visa":
+    "Skilled Migrant Category residence advice from a licensed adviser (IAA 201100160): points check, Expression of Interest and full application support.",
+  "work-visa":
+    "Accredited Employer Work Visa advice in Auckland: employer accreditation checks, job check support and a complete, compliant visa application.",
+  "student-visa":
+    "New Zealand student visa help from a licensed adviser: offer of place, funds evidence and a complete application, plus pathways to work or residence.",
+  "visitor-visa":
+    "New Zealand visitor visa advice for holidays and family visits: genuine-intent evidence, sponsorship forms and a complete application, lodged right.",
+  "partner-family-visa":
+    "Partnership and family visa advice for New Zealand: building genuine-relationship evidence, parent and child pathways, and interview support.",
+  "business-investor-visa":
+    "Business and investor visa advice for New Zealand: category strategy, business plan and source-of-funds support, through to residence.",
+};
+
+// Every figure here must be one the client can stand behind: 8,000+ and
+// "since 2011" were supplied by Priya; the recommend rate is the live
+// Facebook figure; the offices are the client's own locations.
 export const stats = [
-  { value: 8000, suffix: "+", label: "Visas successfully lodged" },
-  { value: 98, suffix: "%", label: "Client satisfaction rating" },
-  { value: 15, suffix: "+", label: "Years of experience — since 2011" },
-  { value: 30, suffix: "+", label: "Countries of origin represented" },
+  { value: 8000, suffix: "+", label: "Visas lodged since 2011" },
+  { value: 15, suffix: "+", label: "Years advising migrants" },
+  { value: 100, suffix: "%", label: "Recommend us on Facebook" },
+  { value: 3, suffix: "", label: "Offices — Auckland, Nadi & Suva" },
 ];
 
 export const team = [
@@ -299,4 +318,11 @@ export const companyInfo = {
   enquiriesEmail: "info@ppimconsulting.co.nz",
   whatsapp: "https://wa.me/64211208592",
   hours: "Mon–Fri, 9:00am–5:30pm NZST",
+  hoursNote: "Evening and weekend appointments on request.",
+  mapUrl:
+    "https://www.google.com/maps/search/?api=1&query=155+Smales+Road+East+Tamaki+Auckland",
+  facebook: "https://www.facebook.com/profile.php?id=100027702354126",
+  // Register home pages supplied by the client.
+  iaaRegisterUrl: "https://www.iaa.govt.nz/",
+  maraRegisterUrl: "https://portal.mara.gov.au/",
 };

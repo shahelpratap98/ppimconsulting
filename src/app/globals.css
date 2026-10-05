@@ -24,7 +24,7 @@
   --color-gold-300: #ddbb63;
   --color-gold-400: #d0a43f;
   --color-gold-500: #c08f2c;
-  --color-gold-600: #a0741e;
+  --color-gold-600: #8a6316;
   --color-gold-700: #7c5916;
   --color-gold-800: #5c4110;
   --color-gold-900: #3e2b0a;
@@ -152,6 +152,43 @@ h1, h2, h3, h4, .font-display {
   opacity: 0;
   animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: var(--reveal-delay, 0s);
+}
+
+@keyframes rise-only {
+  from {
+    transform: translateY(16px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.reveal-css-rise {
+  animation: rise-only 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+/* framer-motion sets opacity/transform inline, so !important is needed to
+   override it. Reduced-motion users and print/PDF output get every section
+   visible immediately instead of waiting for a scroll that may never come. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-css,
+  .reveal-css-rise,
+  .motion-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+@media print {
+  .reveal-css,
+  .reveal-css-rise,
+  .motion-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }
 
 /* Failsafe for JS-driven scroll reveals: if React never hydrates

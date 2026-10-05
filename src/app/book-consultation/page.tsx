@@ -2,24 +2,33 @@ import type { Metadata } from "next";
 import { Calendar, Clock, ShieldCheck, WhatsappLogo } from "@phosphor-icons/react/dist/ssr";
 import { ConsultationForm } from "@/components/ConsultationForm";
 import { Reveal } from "@/components/Reveal";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { companyInfo } from "@/lib/data";
+import { pageOpenGraph } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Book a Free Consultation",
   description:
-    "Book a free, no-obligation consultation with a licensed immigration adviser in Auckland, New Zealand.",
-  openGraph: {
-    title: "Book a Free Consultation | PPIM Consulting",
-    description:
-      "Book a free, no-obligation consultation with a licensed immigration adviser — in person, by video call, or by phone.",
-  },
+    "Book a free, no-obligation consultation with a licensed immigration adviser — in person in Auckland, by video call, or by phone.",
+  openGraph: pageOpenGraph(
+    "Book a Free Consultation | PPIM Consulting",
+    "Book a free, no-obligation consultation with a licensed immigration adviser — in person, by video call, or by phone.",
+    "/book-consultation"
+  ),
 };
 
 export default function BookConsultationPage() {
   return (
     <section className="py-20 md:py-28">
       <div className="container-page grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
-        <Reveal>
+        <Reveal fade={false}>
+          <Breadcrumbs
+            tone="light"
+            crumbs={[
+              { name: "Home", path: "/" },
+              { name: "Book a Free Consultation", path: "/book-consultation" },
+            ]}
+          />
           <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-600">
             Book a Consultation
           </span>

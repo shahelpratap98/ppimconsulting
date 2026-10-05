@@ -5,7 +5,8 @@ import clsx from "clsx";
 type ButtonProps = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "secondary" | "ghost";
+  /** "ghostLight" is the outline button for navy backgrounds. */
+  variant?: "primary" | "secondary" | "ghost" | "ghostLight";
   size?: "md" | "lg";
   className?: string;
   external?: boolean;
@@ -28,7 +29,9 @@ export function Button({
     secondary:
       "bg-navy-900 text-cream hover:bg-navy-800 hover:-translate-y-0.5",
     ghost:
-      "bg-transparent text-navy-900 border border-navy-900/20 hover:border-navy-900/50 hover:bg-navy-900/5 dark:text-cream dark:border-cream/20 dark:hover:bg-cream/5",
+      "bg-transparent text-navy-900 border border-navy-900/20 hover:border-navy-900/50 hover:bg-navy-900/5",
+    ghostLight:
+      "bg-transparent text-cream border border-cream/25 hover:border-cream/50 hover:bg-cream/5",
   };
 
   const sizes = {

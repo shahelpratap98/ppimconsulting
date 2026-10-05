@@ -1,12 +1,16 @@
 import Link from "next/link";
 import {
+  Airplane,
   ArrowRight,
   Check,
   Clock,
   FacebookLogo,
+  MapPin,
   ShieldCheck,
   UsersThree,
 } from "@phosphor-icons/react/dist/ssr";
+import { JsonLd } from "@/components/JsonLd";
+import { buildWebSiteSchema } from "@/lib/schema";
 import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
@@ -24,7 +28,7 @@ const whyUs = [
     icon: ShieldCheck,
     title: "Licensed & accountable",
     description:
-      "Every case is led by an adviser licensed with the Immigration Advisers Authority — regulated, insured, and accountable to you.",
+      "Every case is led by an adviser licensed with the Immigration Advisers Authority — regulated, on the public register, and accountable to you.",
   },
   {
     icon: Clock,
@@ -43,6 +47,7 @@ const whyUs = [
 export default function Home() {
   return (
     <>
+      <JsonLd data={buildWebSiteSchema()} />
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-navy-950 via-navy-900 to-navy-900 text-cream">
         <svg
@@ -70,11 +75,11 @@ export default function Home() {
             <Reveal>
               <div className="inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/10 px-4 py-1.5 text-xs font-medium text-gold-300">
                 <ShieldCheck size={16} weight="fill" />
-                IAA Licensed Immigration Adviser &middot; Auckland, NZ
+                IAA Licensed Adviser &middot; Registered Australian Migration Agent
               </div>
             </Reveal>
 
-            <Reveal delay={0.08}>
+            <Reveal delay={0.08} fade={false}>
               <h1 className="mt-6 text-balance font-display text-4xl leading-[1.1] md:text-6xl">
                 Your pathway to{" "}
                 <span className="italic text-gold-400">New Zealand</span>{" "}
@@ -82,13 +87,13 @@ export default function Home() {
               </h1>
             </Reveal>
 
-            <Reveal delay={0.16}>
+            <Reveal delay={0.16} fade={false}>
               <p className="mt-6 max-w-xl text-balance text-lg leading-relaxed text-cream/70">
                 PPIM Consulting is an Auckland-based immigration consultancy
                 — with offices in Nadi and Suva, Fiji — helping skilled
                 professionals, students, families and investors build a
-                genuine future in New Zealand, with licensed advice you can
-                trust.
+                genuine future in New Zealand and Australia, with licensed
+                advice you can trust.
               </p>
             </Reveal>
 
@@ -100,9 +105,8 @@ export default function Home() {
                 </Button>
                 <Button
                   href="/services"
-                  variant="ghost"
+                  variant="ghostLight"
                   size="lg"
-                  className="border-cream/25 text-cream hover:bg-cream/5 hover:border-cream/50"
                 >
                   Explore visa pathways
                 </Button>
@@ -146,6 +150,57 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Beyond New Zealand */}
+      <section className="border-t border-navy-900/10 bg-cream-100/60 py-20 md:py-24">
+        <div className="container-page">
+          <AnimatedSection>
+            <SectionHeading
+              eyebrow="Beyond New Zealand"
+              title="Advice across the Tasman and the Pacific"
+              description="One adviser, licensed in two countries, with a presence in three."
+            />
+          </AnimatedSection>
+
+          <Stagger className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
+            {[
+              {
+                href: "/australia",
+                icon: Airplane,
+                title: "Australian visas",
+                text: "Priya is a Registered Migration Agent (MARN 2217960), advising New Zealanders, Fijian families and skilled workers on Australian visas.",
+              },
+              {
+                href: "/fiji",
+                icon: MapPin,
+                title: "Clients in Fiji",
+                text: "With offices in Nadi and Suva, we help Fijian clients prepare strong New Zealand and Australian applications close to home.",
+              },
+            ].map((card) => (
+              <StaggerItem key={card.href}>
+                <Link
+                  href={card.href}
+                  className="group flex h-full flex-col rounded-card border border-navy-900/10 bg-white/70 p-7 transition-all duration-300 hover:-translate-y-1 hover:border-gold-400/50 hover:shadow-lg"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-navy-900 text-gold-400">
+                    <card.icon size={24} weight="duotone" />
+                  </div>
+                  <h3 className="mt-5 font-display text-xl text-navy-900">
+                    {card.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-navy-700/80">
+                    {card.text}
+                  </p>
+                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-gold-600 transition-all duration-300 group-hover:gap-2.5">
+                    Learn more
+                    <ArrowRight size={16} weight="bold" />
+                  </span>
+                </Link>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </div>
+      </section>
+
       {/* Why us */}
       <section className="bg-navy-900 py-24 text-cream md:py-32">
         <div className="container-page">
@@ -178,7 +233,7 @@ export default function Home() {
             <ul className="flex flex-wrap justify-center gap-x-8 gap-y-3 md:justify-start">
               {[
                 "Full-service application management",
-                "Transparent fixed-fee pricing",
+                "Written fee agreement before any work begins",
                 "Confidential, judgment-free advice",
               ].map((point) => (
                 <li key={point} className="flex items-center gap-2 text-sm text-cream/70">

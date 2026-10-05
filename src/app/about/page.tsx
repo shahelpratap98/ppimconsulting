@@ -10,18 +10,20 @@ import {
 } from "@/components/AnimatedSection";
 import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
-import { buildPersonSchema, buildBreadcrumbSchema } from "@/lib/schema";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { buildPersonSchema } from "@/lib/schema";
+import { pageOpenGraph } from "@/lib/seo";
 import { team, companyInfo } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Priya Pratap, Licensed Immigration Adviser",
   description:
-    "Meet PPIM Consulting — Priya Pratap Immigration Consulting, a licensed Auckland immigration advisory practice with offices in Nadi and Suva, Fiji.",
-  openGraph: {
-    title: "About Us | PPIM Consulting",
-    description:
-      "Meet Priya Pratap — licensed immigration adviser (IAA 201100160, MARN 2217960) serving New Zealand, Australia and Fiji.",
-  },
+    "Meet Priya Pratap — licensed immigration adviser (IAA 201100160) and Australian migration agent (MARN 2217960), with offices in Auckland, Nadi and Suva.",
+  openGraph: pageOpenGraph(
+    "About Priya Pratap | PPIM Consulting",
+    "Meet Priya Pratap — licensed immigration adviser (IAA 201100160, MARN 2217960) serving New Zealand, Australia and Fiji.",
+    "/about"
+  ),
 };
 
 const values = [
@@ -49,15 +51,15 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd data={buildPersonSchema()} />
-      <JsonLd
-        data={buildBreadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "About", path: "/about" },
-        ])}
-      />
       <section className="bg-navy-950 py-24 text-cream md:py-32">
         <div className="container-page">
-          <Reveal className="max-w-2xl">
+          <Reveal className="max-w-2xl" fade={false}>
+            <Breadcrumbs
+              crumbs={[
+                { name: "Home", path: "/" },
+                { name: "About", path: "/about" },
+              ]}
+            />
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-400">
               About Us
             </span>
@@ -101,29 +103,41 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="mt-8 space-y-3">
-              <div className="flex items-center gap-3 rounded-2xl border border-fern-500/20 bg-fern-50 px-5 py-4 w-fit">
-                <ShieldCheck size={24} weight="fill" className="text-fern-600 shrink-0" />
-                <div>
-                  <p className="text-sm font-semibold text-fern-700">
-                    {companyInfo.license}
-                  </p>
-                  <p className="text-xs text-fern-700/70">
-                    Verifiable on the Immigration Advisers Authority register.
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3 rounded-2xl border border-fern-500/20 bg-fern-50 px-5 py-4 w-fit">
-                <ShieldCheck size={24} weight="fill" className="text-fern-600 shrink-0" />
-                <div>
-                  <p className="text-sm font-semibold text-fern-700">
-                    {companyInfo.licenseAu}
-                  </p>
-                  <p className="text-xs text-fern-700/70">
-                    Verifiable on the Office of the MARA register.
-                  </p>
-                </div>
-              </div>
+              {[
+                {
+                  title: companyInfo.license,
+                  note: "Check it on the Immigration Advisers Authority register",
+                  href: companyInfo.iaaRegisterUrl,
+                },
+                {
+                  title: companyInfo.licenseAu,
+                  note: "Check it on the Office of the MARA register",
+                  href: companyInfo.maraRegisterUrl,
+                },
+              ].map((badge) => (
+                <a
+                  key={badge.href}
+                  href={badge.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 rounded-2xl border border-fern-500/20 bg-fern-50 px-5 py-4 w-fit transition-colors hover:border-fern-500/50"
+                >
+                  <ShieldCheck size={24} weight="fill" className="text-fern-600 shrink-0" />
+                  <span>
+                    <span className="block text-sm font-semibold text-fern-700">
+                      {badge.title}
+                    </span>
+                    <span className="block text-xs text-fern-700 underline underline-offset-2">
+                      {badge.note}
+                    </span>
+                  </span>
+                </a>
+              ))}
             </div>
+            <p className="mt-4 max-w-md text-xs leading-relaxed text-navy-700/80">
+              Priya&apos;s IAA licence covers New Zealand immigration advice;
+              her MARN covers Australian visa assistance.
+            </p>
           </AnimatedSection>
 
           <AnimatedSection delay={0.1}>

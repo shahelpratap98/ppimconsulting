@@ -4,6 +4,12 @@ export const SITE_URL = "https://www.ppimconsulting.co.nz";
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const ADVISER_ID = `${SITE_URL}/about#priya-pratap`;
 
+const AREA_SERVED = [
+  { "@type": "Country", name: "New Zealand" },
+  { "@type": "Country", name: "Fiji" },
+  { "@type": "Country", name: "Australia" },
+];
+
 /** Sitewide entity. Injected once, in the root layout, so it appears on every page. */
 export function buildOrganizationSchema() {
   return {
@@ -13,12 +19,13 @@ export function buildOrganizationSchema() {
     name: companyInfo.name,
     alternateName: companyInfo.fullName,
     description:
-      "Licensed immigration advisory practice in Auckland, New Zealand, with offices in Nadi and Suva, Fiji, providing Skilled Migrant, Work, Student, Visitor, Partner & Family, and Business & Investor visa advice.",
+      "Licensed immigration advisory practice in Auckland, New Zealand, with offices in Nadi and Suva, Fiji, advising on New Zealand and Australian visas.",
     url: `${SITE_URL}/`,
-    telephone: companyInfo.phone,
-    email: companyInfo.enquiriesEmail,
+    telephone: companyInfo.phone.replace(/\s/g, ""),
+    email: companyInfo.email,
     // No dedicated logo asset exists yet — using the real adviser photo as a
     // stopgap `image`. Add a square logo file and a `logo` field once it exists.
+    // postalCode and geo are left out until confirmed with NZ Post / Google Maps.
     image: `${SITE_URL}/priya-pratap.jpg`,
     address: {
       "@type": "PostalAddress",
@@ -27,10 +34,34 @@ export function buildOrganizationSchema() {
       addressRegion: "Auckland",
       addressCountry: "NZ",
     },
-    areaServed: [
-      { "@type": "Country", name: "New Zealand" },
-      { "@type": "Country", name: "Fiji" },
-      { "@type": "Country", name: "Australia" },
+    hasMap: companyInfo.mapUrl,
+    location: [
+      {
+        "@type": "Place",
+        name: "PPIM Consulting — Nadi",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Nadi",
+          addressCountry: "FJ",
+        },
+      },
+      {
+        "@type": "Place",
+        name: "PPIM Consulting — Suva",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Suva",
+          addressCountry: "FJ",
+        },
+      },
+    ],
+    areaServed: AREA_SERVED,
+    knowsAbout: [
+      "New Zealand immigration",
+      "Australian visas",
+      "Skilled Migrant Category",
+      "Partnership visas",
+      "Student visas",
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
@@ -38,7 +69,7 @@ export function buildOrganizationSchema() {
       opens: "09:00",
       closes: "17:30",
     },
-    sameAs: ["https://www.facebook.com/profile.php?id=100027702354126"],
+    sameAs: [companyInfo.facebook],
     founder: { "@id": ADVISER_ID },
     employee: { "@id": ADVISER_ID },
     hasOfferCatalog: {
@@ -70,7 +101,8 @@ export function buildPersonSchema() {
     image: `${SITE_URL}/priya-pratap.jpg`,
     url: `${SITE_URL}/about`,
     email: companyInfo.email,
-    telephone: companyInfo.phone,
+    telephone: companyInfo.phone.replace(/\s/g, ""),
+    sameAs: [companyInfo.facebook],
     worksFor: { "@id": ORGANIZATION_ID },
     hasCredential: [
       {
@@ -112,8 +144,47 @@ export function buildServiceSchema(slug: string) {
     description: service.summary,
     url: `${SITE_URL}/services/${service.slug}`,
     provider: { "@id": ORGANIZATION_ID },
-    areaServed: { "@type": "Country", name: "New Zealand" },
+    areaServed: AREA_SERVED,
     category: "Immigration Visa Services",
+  };
+}
+
+/** Service entity for a standalone landing page such as /australia or /fiji. */
+export function buildRegionServiceSchema({
+  path,
+  name,
+  description,
+  country,
+}: {
+  path: string;
+  name: string;
+  description: string;
+  country: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${SITE_URL}${path}#service`,
+    serviceType: name,
+    name,
+    description,
+    url: `${SITE_URL}${path}`,
+    provider: { "@id": ORGANIZATION_ID },
+    areaServed: { "@type": "Country", name: country },
+    category: "Immigration Visa Services",
+  };
+}
+
+/** Site entity, injected on the home page to support Google's site name. */
+export function buildWebSiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: companyInfo.name,
+    alternateName: companyInfo.fullName,
+    url: `${SITE_URL}/`,
+    publisher: { "@id": ORGANIZATION_ID },
   };
 }
 

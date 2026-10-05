@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, Spinner } from "@phosphor-icons/react/dist/ssr";
 import { services, companyInfo } from "@/lib/data";
@@ -129,6 +130,7 @@ export function ConsultationForm() {
                 {s.shortName}
               </option>
             ))}
+            <option value="australian-visa">Australian visa</option>
           </select>
         </div>
       </div>
@@ -144,7 +146,7 @@ export function ConsultationForm() {
           className="mt-1.5 w-full resize-none rounded-xl border border-navy-900/15 bg-white px-4 py-3 text-navy-900 outline-none transition-colors focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20"
           placeholder="E.g. current visa status, occupation, timeframe..."
         />
-        <p className="mt-1.5 text-xs text-navy-700/50">
+        <p className="mt-1.5 text-xs text-navy-700/70">
           This helps your adviser prepare — no detail is too small.
         </p>
       </div>
@@ -173,9 +175,16 @@ export function ConsultationForm() {
         )}
         {status === "submitting" ? "Sending..." : "Request free consultation"}
       </button>
-      <p className="text-xs text-navy-700/50">
+      <p className="text-xs leading-relaxed text-navy-700/70">
         By submitting, you agree to be contacted by PPIM Consulting about
-        your enquiry. We never share your details with third parties.
+        your enquiry. Your details are delivered to us by FormSubmit, an
+        email-forwarding service, and are never sold or used for marketing.
+        Please don&apos;t include passport numbers or other ID details here.
+        See our{" "}
+        <Link href="/privacy" className="underline underline-offset-2 hover:text-gold-600">
+          privacy policy
+        </Link>
+        .
       </p>
     </form>
   );

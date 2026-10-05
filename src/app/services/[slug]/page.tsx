@@ -11,8 +11,10 @@ import {
 } from "@/components/AnimatedSection";
 import { Reveal } from "@/components/Reveal";
 import { JsonLd } from "@/components/JsonLd";
-import { buildServiceSchema, buildBreadcrumbSchema } from "@/lib/schema";
-import { services } from "@/lib/data";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { buildServiceSchema } from "@/lib/schema";
+import { pageOpenGraph } from "@/lib/seo";
+import { services, serviceMetaDescriptions } from "@/lib/data";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -26,13 +28,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const service = services.find((s) => s.slug === slug);
   if (!service) return {};
+  const description = serviceMetaDescriptions[service.slug] ?? service.summary;
   return {
     title: service.name,
-    description: service.summary,
-    openGraph: {
-      title: `${service.name} | PPIM Consulting`,
-      description: service.summary,
-    },
+    description,
+    openGraph: pageOpenGraph(
+      `${service.name} | PPIM Consulting`,
+      description,
+      `/services/${service.slug}`
+    ),
   };
 }
 
@@ -51,16 +55,16 @@ export default async function ServiceDetailPage({
   return (
     <>
       {serviceSchema && <JsonLd data={serviceSchema} />}
-      <JsonLd
-        data={buildBreadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Services", path: "/services" },
-          { name: service.name, path: `/services/${service.slug}` },
-        ])}
-      />
       <section className="relative overflow-hidden bg-navy-950 py-24 text-cream md:py-32">
         <div className="container-page relative grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
-          <Reveal className="max-w-2xl">
+          <Reveal className="max-w-2xl" fade={false}>
+            <Breadcrumbs
+              crumbs={[
+                { name: "Home", path: "/" },
+                { name: "Services", path: "/services" },
+                { name: service.name, path: `/services/${service.slug}` },
+              ]}
+            />
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold-400/30 bg-gold-400/10 px-4 py-1.5 text-xs font-medium text-gold-300">
               <ShieldCheck size={16} weight="fill" />
               IAA License No. 201100160 &middot; MARN 2217960
@@ -135,6 +139,21 @@ export default async function ServiceDetailPage({
               <div className="mt-6">
                 <FaqAccordion items={service.faqs} />
               </div>
+              <p className="mt-6 text-sm leading-relaxed text-navy-700/80">
+                This page is general information, not advice for your
+                situation. Immigration New Zealand updates its rules
+                regularly — the current requirements are published at{" "}
+                <a
+                  href="https://www.immigration.govt.nz/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold-600 underline underline-offset-2"
+                >
+                  immigration.govt.nz
+                </a>
+                , and your adviser confirms them for your case before you
+                apply.
+              </p>
             </AnimatedSection>
           </div>
 

@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { JsonLd } from "@/components/JsonLd";
 import { buildOrganizationSchema } from "@/lib/schema";
+import { pageOpenGraph } from "@/lib/seo";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -17,6 +18,9 @@ const fraunces = Fraunces({
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  // Body text keeps its size-adjusted fallback on slow first loads instead of
+  // re-painting when Inter arrives — that late swap was the mobile LCP.
+  display: "optional",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | PPIM Consulting",
   },
   description:
-    "Priya Pratap Immigration Consulting (PPIM Consulting) — licensed immigration adviser in Auckland, New Zealand, with offices in Nadi and Suva, Fiji. Expert guidance on Skilled Migrant, Work, Student, Partner and Business visas.",
+    "Licensed immigration adviser in Auckland (IAA 201100160) and registered Australian migration agent, with offices in Nadi and Suva, Fiji.",
   keywords: [
     "immigration adviser Auckland",
     "New Zealand visa consultant",
@@ -33,16 +37,16 @@ export const metadata: Metadata = {
     "work visa New Zealand",
     "IAA licensed adviser",
     "immigration consultant Fiji",
+    "registered migration agent",
   ],
   metadataBase: new URL("https://www.ppimconsulting.co.nz"),
   alternates: { canonical: "./" },
-  openGraph: {
-    title: "PPIM Consulting | Licensed Immigration Adviser, Auckland",
-    description:
-      "Priya Pratap Immigration Consulting — licensed immigration advice in Auckland, New Zealand, with offices in Nadi and Suva, Fiji.",
-    locale: "en_NZ",
-    type: "website",
-  },
+  openGraph: pageOpenGraph(
+    "PPIM Consulting | Licensed Immigration Adviser, Auckland",
+    "Priya Pratap Immigration Consulting — licensed advice for New Zealand and Australian visas, from Auckland, Nadi and Suva.",
+    "/"
+  ),
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({

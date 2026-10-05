@@ -10,6 +10,8 @@ import { services, companyInfo } from "@/lib/data";
 import { Button } from "./Button";
 
 const navItems = [
+  { href: "/australia", label: "Australia" },
+  { href: "/fiji", label: "Fiji" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
