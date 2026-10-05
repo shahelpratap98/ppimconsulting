@@ -22,7 +22,7 @@ import { pageOpenGraph } from "@/lib/seo";
 import { companyInfo, services } from "@/lib/data";
 
 const DESCRIPTION =
-  "Licensed immigration advice for clients in Fiji, with offices in Nadi and Suva — New Zealand and Australian visitor, study, work, partner and residence visas.";
+  "Licensed immigration advice for clients in Fiji, with offices in Nadi and Suva — NZ and Australian visitor, study, work, partner and residence visas.";
 
 export const metadata: Metadata = {
   title: "Immigration Adviser in Fiji — Nadi & Suva",
