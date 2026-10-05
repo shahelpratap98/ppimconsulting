@@ -54,7 +54,7 @@ export function Header() {
             <span className="font-display text-lg text-navy-900 tracking-tight">
               {companyInfo.name}
             </span>
-            <span className="hidden text-[10px] uppercase tracking-[0.14em] text-navy-700/60 sm:block">
+            <span className="hidden text-[10px] uppercase tracking-[0.14em] text-navy-700 sm:block">
               Priya Pratap Immigration Consulting
             </span>
           </span>
