@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   openGraph: pageOpenGraph("Privacy Policy | PPIM Consulting", DESCRIPTION, "/privacy"),
 };
 
-function Block({ title, children }: { title: string; children: ReactNode }) {
+function Block({ title, id, children }: { title: string; id?: string; children: ReactNode }) {
   return (
     <AnimatedSection className="border-t border-navy-900/10 py-9 first:border-t-0 first:pt-0">
-      <h2 className="font-display text-2xl text-navy-900">{title}</h2>
+      <h2 id={id} className="scroll-mt-28 font-display text-2xl text-navy-900">{title}</h2>
       <div className="mt-4 space-y-4 leading-relaxed text-navy-700/85">{children}</div>
     </AnimatedSection>
   );
@@ -72,6 +72,16 @@ export default function PrivacyPage() {
                 records — only once you engage us, and only as needed for your
                 application.
               </li>
+              <li>
+                <strong className="text-navy-900">Website usage</strong>: the
+                pages you visit, your device and browser type, your approximate
+                location, and — if you arrived from one of our ads — the ad
+                click identifier and campaign tags in the link. See{" "}
+                <a href="#cookies" className={linkCls}>
+                  Cookies and tracking
+                </a>
+                .
+              </li>
             </ul>
             <p>
               Please don&apos;t send passport numbers, identity documents or
@@ -86,6 +96,11 @@ export default function PrivacyPage() {
               immigration services, prepare and lodge applications on your
               behalf, and meet our professional and legal obligations. We
               never sell your information or use it for third-party marketing.
+            </p>
+            <p>
+              We use website usage information to understand which pages help
+              people, and to measure which of our Google and Facebook ads lead
+              to enquiries so we spend our advertising budget sensibly.
             </p>
           </Block>
 
@@ -114,6 +129,13 @@ export default function PrivacyPage() {
                 <strong className="text-navy-900">Vercel</strong>, which hosts
                 this website.
               </li>
+              <li>
+                <strong className="text-navy-900">Google</strong> (Google
+                Analytics and Google Ads) and{" "}
+                <strong className="text-navy-900">Meta</strong> (the Meta
+                Pixel for Facebook and Instagram ads), which receive website
+                usage information as described below.
+              </li>
             </ul>
             <p>
               Some of these providers store or process information outside New
@@ -122,11 +144,41 @@ export default function PrivacyPage() {
             </p>
           </Block>
 
-          <Block title="Cookies and tracking">
+          <Block title="Cookies and tracking" id="cookies">
             <p>
-              This website does not use analytics, advertising or tracking
-              cookies. The map on our contact page is provided by Google Maps,
-              which may set its own cookies when it loads.
+              This website uses Google Analytics, the Google Ads tag and the
+              Meta Pixel. They set cookies and record the pages you visit and
+              actions such as sending our form or tapping our WhatsApp or phone
+              links. This tells us how people use the site and which ads lead
+              to enquiries. Google and Meta may also use this information to
+              show our ads to people who have visited the site.
+            </p>
+            <p>
+              We don&apos;t send your name, email, phone number or message to
+              Google or Meta. If you arrived from one of our ads, the ad click
+              identifier and campaign tags are saved in your browser for up to
+              90 days and included with your enquiry, so we can tell which ad
+              you came from.
+            </p>
+            <p>
+              You can opt out with the{" "}
+              <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className={linkCls}>
+                Google Analytics opt-out add-on
+              </a>
+              , your{" "}
+              <a href="https://myadcenter.google.com/" target="_blank" rel="noopener noreferrer" className={linkCls}>
+                Google ad settings
+              </a>{" "}
+              and your{" "}
+              <a href="https://www.facebook.com/adpreferences/" target="_blank" rel="noopener noreferrer" className={linkCls}>
+                Facebook ad preferences
+              </a>
+              , or by blocking cookies in your browser. The site works fully
+              without them.
+            </p>
+            <p>
+              The map on our contact page is provided by Google Maps, which may
+              set its own cookies when it loads.
             </p>
           </Block>
 

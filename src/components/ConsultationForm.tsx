@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, Spinner } from "@phosphor-icons/react/dist/ssr";
 import { services, companyInfo } from "@/lib/data";
+import { getAttribution, trackLead } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "success";
 
@@ -37,10 +38,13 @@ export function ConsultationForm() {
             phone: data.get("phone") || "Not provided",
             "visa pathway": data.get("service") || "Not sure yet",
             message: data.get("message") || "No message provided",
+            // Ad click IDs and UTM tags, when the visitor arrived from an ad.
+            ...getAttribution(),
           }),
         }
       );
       if (!response.ok) throw new Error("Request failed");
+      trackLead(String(data.get("service") ?? ""));
       setStatus("success");
     } catch {
       setStatus("idle");
