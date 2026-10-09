@@ -89,10 +89,12 @@ export function Footer() {
               { href: "/contact", label: "Contact us" },
               { href: "/client-care", label: "Fees, agreements & complaints" },
               { href: "/privacy", label: "Privacy policy" },
+              { href: "/portal", label: "Staff login" },
             ].map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  prefetch={link.href === "/portal" ? false : undefined}
                   className="text-sm text-cream/60 hover:text-gold-400 transition-colors"
                 >
                   {link.label}

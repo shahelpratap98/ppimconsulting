@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { Analytics } from "@/components/Analytics";
-import { JsonLd } from "@/components/JsonLd";
-import { buildOrganizationSchema } from "@/lib/schema";
 import { pageOpenGraph } from "@/lib/seo";
 
 const fraunces = Fraunces({
@@ -60,14 +54,7 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <JsonLd data={buildOrganizationSchema()} />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <Analytics />
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }

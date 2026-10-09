@@ -10,11 +10,14 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.117.3",
     "clsx": "^2.1.1",
     "framer-motion": "^12.42.2",
     "next": "16.2.10",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

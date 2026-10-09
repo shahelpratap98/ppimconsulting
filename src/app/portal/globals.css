@@ -1,0 +1,116 @@
+/* Staff portal styles. Tailwind itself is loaded once by the site stylesheet;
+   @reference lets @apply use its theme (including the portal tokens) without
+   emitting a second copy. Everything is scoped to .portal-root so nothing
+   leaks into the public website. */
+@reference "../globals.css";
+
+.portal-root {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  page: portal;
+}
+
+.portal-root h1,
+.portal-root h2,
+.portal-root h3 {
+  color: var(--color-ink);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.portal-root :focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.portal-root .field {
+  @apply w-full rounded-lg border border-line-2 bg-surface px-3 py-2 text-[15px] text-text
+    placeholder:text-muted/70 disabled:bg-surface-2 disabled:text-muted;
+}
+.portal-root .field-label {
+  @apply mb-1 block text-[13px] font-semibold text-ink;
+}
+.portal-root .btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-[15px] font-semibold
+    transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+}
+.portal-root .btn-primary {
+  @apply bg-ink text-white hover:bg-ink-3;
+}
+.portal-root .btn-accent {
+  @apply bg-accent-600 text-white hover:bg-ink-3;
+}
+.portal-root .btn-quiet {
+  @apply border border-line-2 bg-surface text-ink hover:bg-steel-100;
+}
+.portal-root .chip {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap;
+}
+
+/* Phones: fingers, not pointers. 44px is the smallest comfortable target,
+   and iOS zooms into inputs under 16px. */
+@media (max-width: 639px) {
+  .portal-root .btn,
+  .portal-root .field {
+    min-height: 2.75rem;
+  }
+  .portal-root .field {
+    font-size: 16px;
+  }
+  .portal-root select.field {
+    padding-right: 2rem;
+  }
+  .portal-root input[type="date"].field {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+/* Printing: reports in landscape, invoices (which set .print-portrait) upright. */
+@page portal {
+  size: A4 landscape;
+  margin: 12mm;
+}
+@page portal-portrait {
+  size: A4 portrait;
+  margin: 14mm;
+}
+.portal-root .print-portrait {
+  page: portal-portrait;
+}
+@media print {
+  .portal-root {
+    background: #fff !important;
+    font-size: 11px;
+  }
+  .portal-root .overflow-x-auto {
+    overflow: visible !important;
+  }
+  .portal-root table {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 10px;
+  }
+  .portal-root thead {
+    display: table-header-group;
+  }
+  .portal-root tr,
+  .portal-root section {
+    break-inside: avoid;
+  }
+  .portal-root td,
+  .portal-root th {
+    padding: 3px 6px !important;
+    white-space: normal !important;
+  }
+  .portal-root .chip {
+    padding: 0 !important;
+    background: none !important;
+  }
+  nextjs-portal {
+    display: none !important;
+  }
+}

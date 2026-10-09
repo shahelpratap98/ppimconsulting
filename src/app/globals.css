@@ -84,6 +84,32 @@
   --radius-card: var(--radius-card);
 }
 
+/* Staff portal (/portal) tokens, mapped onto the PPIM palette. Only the
+   portal's components use these names. */
+@theme {
+  --color-ink: #0d1d2e;
+  --color-ink-2: #142a40;
+  --color-ink-3: #1d3a56;
+  --color-accent: #c08f2c;
+  --color-accent-600: #8a6316;
+  --color-accent-100: #f5eacb;
+  --color-steel: #3a6690;
+  --color-steel-100: #eef3f8;
+  --color-bg: #faf8f3;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3efe4;
+  --color-text: #0d1d2e;
+  --color-muted: #4b5d6e;
+  --color-line: #e7e1d3;
+  --color-line-2: #d9dfe6;
+  --color-ok: #1f6b3a;
+  --color-ok-bg: #e0f0e4;
+  --color-warn: #7a5200;
+  --color-warn-bg: #f6ead0;
+  --color-bad: #a32a2a;
+  --color-bad-bg: #f8e1e1;
+}
+
 /* The site uses one designed palette in all conditions. Declaring the
    light scheme stops iOS/Android dark mode from recoloring anything
    (a previous dark-mode remap made cream text invisible on navy). */
