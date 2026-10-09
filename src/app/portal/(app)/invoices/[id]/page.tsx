@@ -138,7 +138,9 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
         {inv.notes ? <p className="mt-6 text-sm text-muted">{inv.notes}</p> : null}
 
         <footer className="mt-8 border-t border-line pt-4 text-sm">
-          {inv.status === "paid" && inv.paid_on ? (
+          {inv.status === "void" ? (
+            <p className="font-semibold text-bad">Void. Nothing is owed on this invoice.</p>
+          ) : inv.status === "paid" && inv.paid_on ? (
             <p className="font-semibold text-ok">Paid {long(inv.paid_on)}. Thank you.</p>
           ) : (
             <>

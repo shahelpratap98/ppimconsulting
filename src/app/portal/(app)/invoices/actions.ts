@@ -85,5 +85,7 @@ export async function voidInvoice(_prev: ActionState, fd: FormData): Promise<Act
 
   refresh();
   revalidatePath(`/portal/invoices/${id}`);
-  return { ok: true, message: "Voided. Its fee stages can be billed again; the number is not reused." };
+  // The void form disappears once the invoice is void, so navigate rather
+  // than return a message to a form that is no longer on the page.
+  redirect(`/portal/invoices/${id}`);
 }
