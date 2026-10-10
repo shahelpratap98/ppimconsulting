@@ -15,19 +15,23 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   let pending = 0;
   let leavePending = 0;
+  let newEnquiries = 0;
   if (adviser) {
     const supabase = await createClient();
-    const [entries, leave] = await Promise.all([
+    const [entries, leave, enquiries] = await Promise.all([
       supabase.from("time_entries").select("id", { count: "exact", head: true }).eq("status", "submitted"),
       supabase.from("leave_requests").select("id", { count: "exact", head: true }).eq("status", "requested"),
+      // Website enquiries nobody has picked up yet (no adviser assigned).
+      supabase.from("cases").select("id", { count: "exact", head: true }).eq("source", "website").eq("status", "enquiry").is("adviser_id", null),
     ]);
     pending = entries.count ?? 0;
     leavePending = leave.count ?? 0;
+    newEnquiries = enquiries.count ?? 0;
   }
 
   const links = [
     { href: "/portal/my/day", label: "My day" },
-    { href: "/portal/cases", label: "Cases" },
+    { href: "/portal/cases", label: "Cases", badge: newEnquiries },
     ...(adviser ? [{ href: "/portal/approvals", label: "Approvals", badge: pending }] : []),
     ...(adviser ? [{ href: "/portal/entries", label: "All time" }] : []),
     ...(adviser ? [{ href: "/portal/invoices", label: "Invoices" }] : []),

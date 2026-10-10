@@ -71,6 +71,7 @@ export type CaseView = {
   outcome: CaseOutcome | null;
   notes: string;
   is_internal: boolean;
+  source: "portal" | "website";
   checklist_total: number;
   checklist_received: number;
   checklist_flagged: number;

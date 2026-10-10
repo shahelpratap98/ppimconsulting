@@ -118,6 +118,7 @@ export default async function CasesPage({
                 <tr key={c.id} className="hover:bg-surface-2/60">
                   <td className="px-4 py-2.5">
                     <Link href={`/portal/cases/${c.id}`} className="font-semibold text-accent-600 hover:underline">{c.case_no}</Link>
+                    {c.source === "website" ? <span className="chip ml-2 bg-accent-100 text-accent-600">Website</span> : null}
                     <span className="block text-xs text-muted">Opened {formatDay(c.opened_on, { day: "numeric", month: "short", year: "numeric" })}</span>
                   </td>
                   <td className="px-4 py-2.5">

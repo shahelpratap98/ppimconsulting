@@ -77,6 +77,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
           <h1 className="text-3xl font-semibold">{c.case_no}</h1>
           <CaseStatusChip status={c.status} outcome={c.outcome} />
           <span className="chip bg-surface-2 text-ink">{c.jurisdiction} · {pathwayLabel(c.pathway)}</span>
+          {c.source === "website" ? <span className="chip bg-accent-100 text-accent-600">Website enquiry</span> : null}
         </div>
         <p className="mt-1 text-lg text-ink">{c.client ?? "Internal"} <span className="text-muted">· {c.title}</span></p>
         <p className="mt-1 text-sm text-muted">

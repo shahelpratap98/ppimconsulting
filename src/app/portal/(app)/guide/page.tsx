@@ -251,6 +251,26 @@ export default async function GuidePage() {
       ),
     },
     {
+      id: "website-enquiries",
+      title: "Enquiries from the website",
+      audience: "adviser",
+      body: (
+        <>
+          <p>
+            Every consultation request sent from the website&apos;s form arrives in two places: as an email to info@ppimconsulting.co.nz, and here as a new
+            case with the status <span className="chip bg-surface-2 text-muted">Enquiry</span> and a <span className="chip bg-accent-100 text-accent-600">Website</span> tag.
+          </p>
+          <Points>
+            <li>The number beside <Go href="/portal/cases">Cases</Go> in the top bar is how many website enquiries nobody has picked up yet.</li>
+            <li>The case notes hold the person&apos;s phone number, the visa they chose and their message. If they came from an ad, that is noted too.</li>
+            <li>To pick one up, open it and choose yourself as the <Term>Adviser</Term> under Case details. It then drops off the count.</li>
+            <li>If they engage you, move the status to <Term>Active</Term> and set the fee. If not, set it to <Term>Closed</Term>.</li>
+            <li>Someone who has enquired before is matched by email, so their new enquiry is added to their existing client record.</li>
+          </Points>
+        </>
+      ),
+    },
+    {
       id: "fees",
       title: "Fees and payment stages",
       audience: "adviser",

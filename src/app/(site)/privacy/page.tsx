@@ -118,6 +118,11 @@ export default function PrivacyPage() {
                 inbox.
               </li>
               <li>
+                <strong className="text-navy-900">Supabase</strong>, which hosts
+                our secure client records system in Sydney, Australia. Website
+                enquiries are saved there as well as emailed to us.
+              </li>
+              <li>
                 <strong className="text-navy-900">Microsoft 365</strong>, which
                 hosts our email.
               </li>

@@ -25,25 +25,43 @@ export function ConsultationForm() {
     }
 
     setStatus("submitting");
+    // Ad click IDs and UTM tags, when the visitor arrived from an ad.
+    const attribution = getAttribution();
+    const post = (url: string, body: object) =>
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(body),
+      }).then((r) => {
+        if (!r.ok) throw new Error("Request failed");
+      });
+
+    // Sent two ways at once: by email to the inbox (FormSubmit), and into the
+    // staff portal as a new enquiry. Either one arriving is enough.
+    const results = await Promise.allSettled([
+      post(`https://formsubmit.co/ajax/${companyInfo.enquiriesEmail}`, {
+        _subject: "New consultation enquiry — ppimconsulting.co.nz",
+        _honey: data.get("company") ?? "",
+        name: data.get("name"),
+        email: data.get("email"),
+        phone: data.get("phone") || "Not provided",
+        "visa pathway": data.get("service") || "Not sure yet",
+        message: data.get("message") || "No message provided",
+        ...attribution,
+      }),
+      post("/api/enquiry", {
+        company: data.get("company") ?? "",
+        name: data.get("name"),
+        email: data.get("email"),
+        phone: data.get("phone") ?? "",
+        service: data.get("service") ?? "",
+        message: data.get("message") ?? "",
+        attribution,
+      }),
+    ]);
+
     try {
-      const response = await fetch(
-        `https://formsubmit.co/ajax/${companyInfo.enquiriesEmail}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({
-            _subject: "New consultation enquiry — ppimconsulting.co.nz",
-            name: data.get("name"),
-            email: data.get("email"),
-            phone: data.get("phone") || "Not provided",
-            "visa pathway": data.get("service") || "Not sure yet",
-            message: data.get("message") || "No message provided",
-            // Ad click IDs and UTM tags, when the visitor arrived from an ad.
-            ...getAttribution(),
-          }),
-        }
-      );
-      if (!response.ok) throw new Error("Request failed");
+      if (!results.some((r) => r.status === "fulfilled")) throw new Error("Both deliveries failed");
       trackLead(String(data.get("service") ?? ""));
       setStatus("success");
     } catch {
@@ -77,6 +95,12 @@ export function ConsultationForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+      {/* Honeypot for spam bots: hidden from people and screen readers. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label htmlFor="company">Company</label>
+        <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-navy-900">
@@ -181,8 +205,9 @@ export function ConsultationForm() {
       </button>
       <p className="text-xs leading-relaxed text-navy-700/70">
         By submitting, you agree to be contacted by PPIM Consulting about
-        your enquiry. Your details are delivered to us by FormSubmit, an
-        email-forwarding service, and are never sold or used for marketing.
+        your enquiry. Your details are emailed to us through FormSubmit, an
+        email-forwarding service, and saved in our secure client records
+        system. They are never sold or used for marketing.
         Please don&apos;t include passport numbers or other ID details here.
         See our{" "}
         <Link href="/privacy" className="underline underline-offset-2 hover:text-gold-600">
