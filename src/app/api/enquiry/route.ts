@@ -1,14 +1,13 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { services } from "@/lib/data";
-import { pathwayByKey } from "@/lib/portal/pathways";
 import { clientIp, rateLimit } from "@/lib/portal/rate-limit";
 import { createAdminClient } from "@/lib/portal/supabase/admin";
 
 // The consultation form posts here as well as to FormSubmit (which emails
-// info@). Each enquiry is filed in the staff portal as a client and a case
-// with status "Enquiry", so an enquiry is never lost in an inbox.
+// info@). Each enquiry lands on the Enquiries page in the staff portal, so it
+// is never lost in an inbox. It becomes a client and a case when they sign.
 
-// Website service slug → portal pathway (which sets the starting checklist).
+// Website service slug → portal pathway (which sets the checklist at sign-up).
 const PATHWAY_FOR_SERVICE: Record<string, { pathway: string; jurisdiction: "NZ" | "AU" }> = {
   "skilled-migrant-visa": { pathway: "smc", jurisdiction: "NZ" },
   "work-visa": { pathway: "aewv", jurisdiction: "NZ" },
@@ -18,6 +17,8 @@ const PATHWAY_FOR_SERVICE: Record<string, { pathway: string; jurisdiction: "NZ" 
   "business-investor-visa": { pathway: "business", jurisdiction: "NZ" },
   "australian-visa": { pathway: "other", jurisdiction: "AU" },
 };
+
+const AD_FIELDS = ["gclid", "gbraid", "wbraid", "fbclid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "landing_page"];
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 function sameOrigin(request: NextRequest): boolean {
@@ -64,36 +65,24 @@ export async function POST(request: NextRequest) {
   }
 
   const target = PATHWAY_FOR_SERVICE[service] ?? { pathway: "other", jurisdiction: "NZ" as const };
-  const pathway = pathwayByKey(target.pathway);
   const serviceName = services.find((s) => s.slug === service)?.shortName ?? (service === "australian-visa" ? "Australian visa" : "Not sure yet");
 
   // Ad click IDs and UTM tags, when the visitor arrived from an ad.
   const attribution = body.attribution && typeof body.attribution === "object" ? (body.attribution as Record<string, unknown>) : {};
-  const cameFrom = Object.entries(attribution)
-    .filter(([k, v]) => /^[a-z_]{2,30}$/.test(k) && typeof v === "string")
-    .slice(0, 12)
-    .map(([k, v]) => `${k}: ${String(v).slice(0, 200)}`);
+  const adFields = Object.fromEntries(AD_FIELDS.map((k) => [k, str(attribution[k], 200)]));
 
-  const received = new Intl.DateTimeFormat("en-NZ", { dateStyle: "medium", timeStyle: "short", timeZone: "Pacific/Auckland" }).format(new Date());
-  const notes = [
-    `Website enquiry received ${received}.`,
-    `Phone: ${phone || "not given"}`,
-    `Visa pathway chosen: ${serviceName}`,
-    "",
-    "Message:",
-    message || "(none)",
-    ...(cameFrom.length ? ["", "Came from an ad:", ...cameFrom] : []),
-  ].join("\n");
-
-  const { error } = await admin.rpc("create_website_enquiry", {
-    p_name: name,
-    p_email: email,
-    p_phone: phone,
-    p_pathway: target.pathway,
-    p_jurisdiction: target.jurisdiction,
-    p_title: `Website enquiry: ${serviceName}`,
-    p_notes: notes,
-    p_checklist: pathway?.items ?? [],
+  const { error } = await admin.rpc("crm_website_enquiry", {
+    p: {
+      name,
+      email,
+      phone,
+      service: serviceName,
+      message,
+      pathway: target.pathway,
+      jurisdiction: target.jurisdiction,
+      title: `Website enquiry: ${serviceName}`,
+      ...adFields,
+    },
   });
   if (error) {
     console.error("[enquiry] could not save:", error.message);

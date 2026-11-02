@@ -70,6 +70,46 @@ export default async function GuidePage() {
       ),
     },
     {
+      id: "enquiries",
+      title: "Enquiries: from first contact to signed",
+      audience: "everyone",
+      body: (
+        <>
+          <p>
+            <Go href="/portal/enquiries">Enquiries</Go> is everyone who has been in touch and isn&apos;t a client yet. Website enquiries add themselves. Use <Term>+ Add enquiry</Term> for
+            anyone who calls, messages on WhatsApp or comes to an office.
+          </p>
+          <Points>
+            <li>The number beside Enquiries in the top bar is new enquiries nobody has picked up. Open one and choose yourself under <Term>Looked after by</Term>.</li>
+            <li>Work down the stages: New, Contacted, Consultation booked, Consulted, Agreement sent. Booking a consultation time moves it on for you.</li>
+            <li>Set a <Term>Next step</Term> and <Term>By when</Term> so nobody is forgotten. The list puts whatever is due soonest at the top.</li>
+            <li>Record their visa and when it expires. Anything expiring soon is coloured on the list and appears on <Go href="/portal/deadlines">Deadlines</Go>.</li>
+            <li><Term>Send a message</Term> has ready-made wording you can edit, then opens WhatsApp or your email. Nothing is sent until you press send there.</li>
+            <li>Log calls and WhatsApp conversations under <Term>Notes and calls</Term>, so the next person can see what was said.</li>
+            <li>If they decide not to go ahead, choose <Term>Not proceeding</Term> and the reason. An enquiry can be reopened later.</li>
+          </Points>
+          <p>Only a licensed adviser can advise on eligibility or options. If someone asks whether they qualify, book a consultation rather than answering.</p>
+        </>
+      ),
+    },
+    {
+      id: "deadlines",
+      title: "Deadlines",
+      audience: "everyone",
+      body: (
+        <>
+          <p>
+            <Go href="/portal/deadlines">Deadlines</Go> lists every date that can&apos;t be missed, soonest first. The number in the top bar is how many are overdue or due within 7 days.
+          </p>
+          <Points>
+            <li>Add them from the case: visa expiry, a response due to Immigration New Zealand or Home Affairs, medicals, police certificates and passports.</li>
+            <li>Press <Term>Done</Term> when it&apos;s dealt with and it drops off the list.</li>
+            <li>The visa expiry of anyone still enquiring appears here too, and moves to their case when they sign.</li>
+          </Points>
+        </>
+      ),
+    },
+    {
       id: "cases",
       title: "Cases and the document checklist",
       audience: "everyone",
@@ -251,21 +291,17 @@ export default async function GuidePage() {
       ),
     },
     {
-      id: "website-enquiries",
-      title: "Enquiries from the website",
+      id: "signing-up",
+      title: "Signing up a client",
       audience: "adviser",
       body: (
         <>
-          <p>
-            Every consultation request sent from the website&apos;s form arrives in two places: as an email to info@ppimconsulting.co.nz, and here as a new
-            case with the status <span className="chip bg-surface-2 text-muted">Enquiry</span> and a <span className="chip bg-accent-100 text-accent-600">Website</span> tag.
-          </p>
+          <p>Fees, the eligibility assessment and signing up are for advisers only. Staff cannot see or change them.</p>
           <Points>
-            <li>The number beside <Go href="/portal/cases">Cases</Go> in the top bar is how many website enquiries nobody has picked up yet.</li>
-            <li>The case notes hold the person&apos;s phone number, the visa they chose and their message. If they came from an ad, that is noted too.</li>
-            <li>To pick one up, open it and choose yourself as the <Term>Adviser</Term> under Case details. It then drops off the count.</li>
-            <li>If they engage you, move the status to <Term>Active</Term> and set the fee. If not, set it to <Term>Closed</Term>.</li>
-            <li>Someone who has enquired before is matched by email, so their new enquiry is added to their existing client record.</li>
+            <li>Record the consultation fee and the quoted fee under <Term>Fees</Term>, and your notes under <Term>Adviser assessment</Term>.</li>
+            <li>Record the conflict check, the client care information and the agreement under <Term>Before we act</Term>.</li>
+            <li>Once the written agreement is signed, use <Term>Sign up this client</Term>. It creates the client and an active case with the pathway&apos;s document checklist, carries over the quoted fee, and adds their visa expiry as a deadline.</li>
+            <li>Website enquiries from before the CRM were filed as cases. They stay under <Go href="/portal/cases">Cases</Go> with a <span className="chip bg-accent-100 text-accent-600">Website</span> tag; new ones go to Enquiries.</li>
           </Points>
         </>
       ),

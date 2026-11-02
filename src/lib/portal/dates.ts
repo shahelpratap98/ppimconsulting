@@ -38,3 +38,33 @@ export function formatDay(iso: string, opts: Intl.DateTimeFormatOptions): string
 export function formatHours(n: number): string {
   return String(Math.round(n * 100) / 100);
 }
+
+// A datetime-local value ("2026-11-05T14:30") typed by NZ staff, as a UTC ISO
+// string. Run twice so a time either side of a daylight-saving change lands right.
+export function nzLocalToIso(local: string): string | null {
+  const guess = Date.parse(local + "Z");
+  if (Number.isNaN(guess)) return null;
+  const offsetAt = (t: number) => Date.parse(isoToNzLocal(new Date(t).toISOString()) + "Z") - t;
+  return new Date(guess - offsetAt(guess - offsetAt(guess))).toISOString();
+}
+
+// The reverse, for filling a datetime-local input.
+export function isoToNzLocal(iso: string): string {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Pacific/Auckland", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hourCycle: "h23",
+  }).formatToParts(new Date(iso));
+  const p = (t: string) => parts.find((x) => x.type === t)?.value ?? "";
+  return `${p("year")}-${p("month")}-${p("day")}T${p("hour")}:${p("minute")}:${p("second")}`;
+}
+
+export function formatDateTime(iso: string): string {
+  return new Intl.DateTimeFormat("en-NZ", {
+    timeZone: "Pacific/Auckland", weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit",
+  }).format(new Date(iso));
+}
+
+// Whole days from today (NZ) to a date; negative when it has passed.
+export function daysUntil(iso: string): number {
+  return Math.round((Date.parse(iso + "T00:00:00Z") - Date.parse(todayNZ() + "T00:00:00Z")) / 86400000);
+}

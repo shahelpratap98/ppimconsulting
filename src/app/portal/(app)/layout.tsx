@@ -2,6 +2,7 @@ import Link from "next/link";
 import { signOut } from "@/app/portal/auth-actions";
 import { NavLinks } from "@/components/portal/nav-links";
 import { isAdmin, isAdviser, requireProfile } from "@/lib/portal/auth";
+import { addDays, todayNZ } from "@/lib/portal/dates";
 import { WEBSITE_URL } from "@/lib/portal/paths";
 import { createClient } from "@/lib/portal/supabase/server";
 import { MobileNav, type MobileLink } from "@/components/portal/mobile-nav";
@@ -15,23 +16,30 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   let pending = 0;
   let leavePending = 0;
-  let newEnquiries = 0;
+  let newCases = 0;
+  const supabase = await createClient();
+  const [unclaimed, dueSoon] = await Promise.all([
+    // New enquiries nobody has picked up yet.
+    supabase.from("leads").select("id", { count: "exact", head: true }).eq("stage", "new").is("owner_id", null).is("adviser_id", null),
+    supabase.from("v_deadlines").select("id", { count: "exact", head: true }).lte("due_on", addDays(todayNZ(), 7)),
+  ]);
   if (adviser) {
-    const supabase = await createClient();
     const [entries, leave, enquiries] = await Promise.all([
       supabase.from("time_entries").select("id", { count: "exact", head: true }).eq("status", "submitted"),
       supabase.from("leave_requests").select("id", { count: "exact", head: true }).eq("status", "requested"),
-      // Website enquiries nobody has picked up yet (no adviser assigned).
+      // Website enquiries from before the CRM, filed as cases, still unassigned.
       supabase.from("cases").select("id", { count: "exact", head: true }).eq("source", "website").eq("status", "enquiry").is("adviser_id", null),
     ]);
     pending = entries.count ?? 0;
     leavePending = leave.count ?? 0;
-    newEnquiries = enquiries.count ?? 0;
+    newCases = enquiries.count ?? 0;
   }
 
   const links = [
     { href: "/portal/my/day", label: "My day" },
-    { href: "/portal/cases", label: "Cases", badge: newEnquiries },
+    { href: "/portal/enquiries", label: "Enquiries", badge: unclaimed.count ?? 0 },
+    { href: "/portal/cases", label: "Cases", badge: newCases },
+    { href: "/portal/deadlines", label: "Deadlines", badge: dueSoon.count ?? 0 },
     ...(adviser ? [{ href: "/portal/approvals", label: "Approvals", badge: pending }] : []),
     ...(adviser ? [{ href: "/portal/entries", label: "All time" }] : []),
     ...(adviser ? [{ href: "/portal/invoices", label: "Invoices" }] : []),
@@ -43,8 +51,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   // Phone bottom bar: the three things used most, everything else under More.
   const primaryHrefs = adviser
-    ? ["/portal/my/day", "/portal/cases", "/portal/approvals"]
-    : ["/portal/my/day", "/portal/cases", "/portal/leave"];
+    ? ["/portal/my/day", "/portal/enquiries", "/portal/cases"]
+    : ["/portal/my/day", "/portal/enquiries", "/portal/cases"];
   const shortLabel: Record<string, string> = { "/portal/entries": "All time", "/portal/reports": adviser ? "Reports" : "Hours" };
   const asMobile = (l: (typeof links)[number]): MobileLink => ({ ...l, short: shortLabel[l.href] });
   const primary = primaryHrefs.map((h) => links.find((l) => l.href === h)).filter(Boolean).map((l) => asMobile(l!));
@@ -53,7 +61,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <div className="min-h-screen">
       <header className="bg-ink text-white print:hidden">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-2 px-4 py-2.5 sm:justify-start sm:py-3 sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-2.5 sm:justify-start sm:py-3 sm:px-6">
           <a href={WEBSITE_URL} className="flex items-center gap-3" aria-label="PPIM Consulting website">
             <span className="rounded-md bg-accent px-2 py-1 font-display text-sm font-semibold tracking-wide text-ink">PPIM</span>
             <span className="text-[13px] font-semibold tracking-[0.12em] uppercase">

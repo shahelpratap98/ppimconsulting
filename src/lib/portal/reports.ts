@@ -1,5 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { formatHours } from "@/lib/portal/dates";
+import { OFFICE_LABEL, OPEN_STAGES, SOURCE_LABEL, type LeadSource, type LeadStage, type Office } from "@/lib/portal/crm";
+import { addDays, formatHours, nzLocalToIso } from "@/lib/portal/dates";
+import { pathwayLabel } from "@/lib/portal/pathways";
 
 // One definition per report, used by both the on-screen page and the CSV
 // export so the two can never disagree.
@@ -22,6 +24,7 @@ export const REPORTS = [
   { slug: "cases", label: "Time by case", adviserOnly: true },
   { slug: "matrix", label: "Case × person", adviserOnly: true },
   { slug: "profitability", label: "Case profitability", adviserOnly: true },
+  { slug: "enquiries", label: "Enquiries", adviserOnly: true },
 ] as const;
 export type ReportSlug = (typeof REPORTS)[number]["slug"];
 
@@ -51,6 +54,7 @@ type Entry = {
 
 const ENTRY_COLUMNS = "id, entry_date, user_id, employee, case_id, case_no, case_title, client, is_internal, work_type, hours, description, status";
 
+const nzDayStart = (iso: string) => nzLocalToIso(iso + "T00:00:00") ?? iso;
 const num = (v: unknown) => Number(v ?? 0);
 const round2 = (n: number) => Math.round(n * 100) / 100;
 const daysBetween = (from: string, to: string) =>
@@ -416,12 +420,99 @@ async function profitability(supabase: SupabaseClient, p: ReportParams): Promise
   };
 }
 
+// ------------------------------------------------------------------ enquiries
+
+type LeadRow = {
+  id: string;
+  source: LeadSource;
+  pathway: string;
+  office: Office | null;
+  stage: LeadStage;
+  consult_at: string | null;
+  consulted_on: string | null;
+  created_at: string;
+  first_contacted_at: string | null;
+};
+
+const percent = (a: number, b: number) => (b ? `${Math.round((a / b) * 100)}%` : "—");
+
+async function enquiries(supabase: SupabaseClient, p: ReportParams): Promise<Report> {
+  const [leadsRes, feesRes] = await Promise.all([
+    supabase
+      .from("leads")
+      .select("id, source, pathway, office, stage, consult_at, consulted_on, created_at, first_contacted_at")
+      .gte("created_at", nzDayStart(p.from))
+      .lt("created_at", nzDayStart(addDays(p.to, 1)))
+      .limit(5000),
+    supabase.from("lead_fees").select("lead_id, quoted_fee, consult_fee, consult_paid_on"),
+  ]);
+  if (leadsRes.error) throw new Error(leadsRes.error.message);
+  if (feesRes.error) throw new Error(feesRes.error.message);
+  const leads = (leadsRes.data ?? []) as LeadRow[];
+  const fees = new Map((feesRes.data ?? []).map((f) => [f.lead_id as string, f]));
+
+  const signed = (l: LeadRow) => l.stage === "signed";
+  const consulted = (l: LeadRow) => Boolean(l.consulted_on) || signed(l) || l.stage === "agreement_sent";
+  const totalsFor = (group: LeadRow[]) => ({
+    enquiries: group.length,
+    booked: group.filter((l) => l.consult_at || consulted(l)).length,
+    consulted: group.filter(consulted).length,
+    signed: group.filter(signed).length,
+    open: group.filter((l) => OPEN_STAGES.includes(l.stage)).length,
+    conversion: percent(group.filter(signed).length, group.length),
+    signed_value: sum(group.filter(signed), (l) => num(fees.get(l.id)?.quoted_fee)),
+    consult_fees: sum(group, (l) => (fees.get(l.id)?.consult_paid_on ? num(fees.get(l.id)?.consult_fee) : 0)),
+  });
+
+  const columns = (first: string): Column[] => [
+    { key: "name", label: first, type: "text" },
+    { key: "enquiries", label: "Enquiries", type: "int" },
+    { key: "booked", label: "Booked", type: "int" },
+    { key: "consulted", label: "Consulted", type: "int" },
+    { key: "signed", label: "Signed", type: "int" },
+    { key: "open", label: "Still open", type: "int" },
+    { key: "conversion", label: "Signed %", type: "text" },
+    { key: "signed_value", label: "Quoted fees signed", type: "money" },
+    { key: "consult_fees", label: "Consultation fees paid", type: "money" },
+  ];
+  const table = (name: string, first: string, keyOf: (l: LeadRow) => string): ReportTable => {
+    const groups = new Map<string, LeadRow[]>();
+    leads.forEach((l) => groups.set(keyOf(l), [...(groups.get(keyOf(l)) ?? []), l]));
+    return {
+      name,
+      columns: columns(first),
+      rows: [...groups.entries()]
+        .map(([key, group]) => ({ name: key, ...totalsFor(group) }))
+        .sort((a, b) => b.enquiries - a.enquiries),
+      totals: { name: "Total", ...totalsFor(leads) },
+      empty: "No enquiries in this period.",
+    };
+  };
+
+  const replied = leads.filter((l) => l.first_contacted_at);
+  const replyHours = replied.length
+    ? round2(sum(replied, (l) => (Date.parse(l.first_contacted_at!) - Date.parse(l.created_at)) / 3600000) / replied.length)
+    : null;
+
+  return {
+    title: "Enquiries",
+    subtitle: `Enquiries received ${period(p)}, and how far each has got.`,
+    notice: replyHours === null ? undefined : `Average time to first reply: ${formatHours(replyHours)} hours.`,
+    tables: [
+      table("Where they came from", "Source", (l) => SOURCE_LABEL[l.source] ?? l.source),
+      table("Visa pathway", "Pathway", (l) => pathwayLabel(l.pathway)),
+      table("Office", "Office", (l) => (l.office ? OFFICE_LABEL[l.office] : "Not set")),
+    ],
+  };
+}
+
 const BUILDERS: Record<ReportSlug, (s: SupabaseClient, p: ReportParams) => Promise<Report>> = {
   "hours-check": hoursCheck,
   person: personDetail,
   cases: byCase,
   matrix,
   profitability,
+  enquiries,
 };
 
 export function buildReport(slug: ReportSlug, supabase: SupabaseClient, params: ReportParams): Promise<Report> {

@@ -4,13 +4,16 @@ import { notFound } from "next/navigation";
 import { ActionForm } from "@/components/portal/action-form";
 import { CaseStatusChip } from "@/components/portal/case-status-chip";
 import { InvoiceStatusChip } from "@/components/portal/invoice-status-chip";
+import { DueChip } from "@/components/portal/lead-chips";
 import { StatusChip } from "@/components/portal/status-chip";
 import { isAdmin, isAdviser, requireProfile } from "@/lib/portal/auth";
+import { DEADLINE_LABEL, type DeadlineKind } from "@/lib/portal/crm";
 import { formatDay, formatHours } from "@/lib/portal/dates";
 import { formatMoney } from "@/lib/portal/money";
 import { pathwayByKey, pathwayLabel } from "@/lib/portal/pathways";
 import { createClient } from "@/lib/portal/supabase/server";
 import type { CaseView, ChecklistItem, EntryView, InvoiceStatus } from "@/lib/portal/types";
+import { addDeadline, completeDeadline } from "../../enquiries/actions";
 import { deleteStage, saveFee, saveStage, updateCase } from "../actions";
 import { Checklist } from "./checklist";
 
@@ -37,7 +40,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
   if (!UUID.test(id)) notFound();
 
   const supabase = await createClient();
-  const [caseRes, itemsRes, entriesRes, clientRes, advisersRes, feeRes, stagesRes, financeRes, invoicesRes] = await Promise.all([
+  const [caseRes, itemsRes, entriesRes, clientRes, advisersRes, feeRes, stagesRes, financeRes, invoicesRes, deadlinesRes, leadRes] = await Promise.all([
     supabase.from("v_cases").select("*").eq("id", id).maybeSingle(),
     supabase.from("checklist_items").select("id, label, status, note, sort_order, updated_at").eq("case_id", id).order("sort_order").order("created_at"),
     supabase.from("v_entries").select("id, entry_date, employee, work_type, hours, description, status").eq("case_id", id).order("entry_date", { ascending: false }).limit(200),
@@ -53,6 +56,8 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
     adviser
       ? supabase.from("invoices").select("id, invoice_no, issued_on, due_on, total, status").eq("case_id", id).order("issued_on", { ascending: false })
       : Promise.resolve({ data: [] }),
+    supabase.from("deadlines").select("id, kind, due_on, note").eq("case_id", id).is("done_on", null).order("due_on"),
+    supabase.from("leads").select("id").eq("case_id", id).limit(1).maybeSingle(),
   ]);
 
   const c = caseRes.data as CaseView | null;
@@ -65,6 +70,8 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
   const stages = (stagesRes.data ?? []) as unknown as Stage[];
   const finance = financeRes.data as Finance | null;
   const invoices = (invoicesRes.data ?? []) as CaseInvoice[];
+  const deadlines = (deadlinesRes.data ?? []) as { id: string; kind: DeadlineKind; due_on: string; note: string }[];
+  const fromEnquiry = leadRes.data as { id: string } | null;
   const pathway = pathwayByKey(c.pathway);
   const entryHours = entries.reduce((sum, e) => sum + Number(e.hours ?? 0), 0);
   const stagedMismatch = finance && finance.agreed_fee !== null && Number(finance.staged) !== Number(finance.agreed_fee);
@@ -85,6 +92,7 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
           {c.lodged_on ? <> · Lodged {short(c.lodged_on)}</> : null}
           {c.decided_on ? <> · Decided {short(c.decided_on)}</> : null}
           {c.adviser ? <> · Adviser {c.adviser}</> : null}
+          {fromEnquiry ? <> · <Link href={`/portal/enquiries/${fromEnquiry.id}`} className="font-semibold text-accent-600 hover:underline">Enquiry history</Link></> : null}
         </p>
       </div>
 
@@ -104,6 +112,43 @@ export default async function CasePage({ params }: { params: Promise<{ id: strin
               adviserName={c.adviser}
               pathwayName={pathway?.name ?? pathwayLabel(c.pathway)}
             />
+          )}
+
+          {c.is_internal ? null : (
+            <section className="rounded-xl border border-line bg-surface p-5" aria-labelledby="deadlines-heading">
+              <h2 id="deadlines-heading" className="text-xl font-semibold">Deadlines</h2>
+              <p className="mt-0.5 text-sm text-muted">Visa expiry, responses due and certificates that run out. These also appear on the Deadlines page.</p>
+              {deadlines.length ? (
+                <ul className="mt-3 divide-y divide-line rounded-lg border border-line">
+                  {deadlines.map((d) => (
+                    <li key={d.id} className="flex flex-wrap items-center gap-x-3 gap-y-1.5 px-4 py-2.5 text-sm">
+                      <DueChip on={d.due_on} />
+                      <span className="min-w-0 flex-1 basis-40">{DEADLINE_LABEL[d.kind]}{d.note ? <span className="text-muted"> · {d.note}</span> : null}</span>
+                      <ActionForm action={completeDeadline} submitLabel="Done" pendingLabel="Saving…" quiet>
+                        <input type="hidden" name="id" value={d.id} />
+                      </ActionForm>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              <ActionForm action={addDeadline} submitLabel="Add deadline" quiet className="mt-3 flex flex-wrap items-end gap-2 [&>div:last-child]:flex-none">
+                <input type="hidden" name="case_id" value={c.id} />
+                <div className="min-w-0 flex-1 basis-48">
+                  <label htmlFor="dl-kind" className="field-label">What</label>
+                  <select id="dl-kind" name="kind" defaultValue="response_due" className="field">
+                    {Object.entries(DEADLINE_LABEL).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+                  </select>
+                </div>
+                <div className="w-40">
+                  <label htmlFor="dl-due" className="field-label">Date</label>
+                  <input id="dl-due" name="due_on" type="date" required className="field" />
+                </div>
+                <div className="min-w-0 flex-1 basis-48">
+                  <label htmlFor="dl-note" className="field-label">Note</label>
+                  <input id="dl-note" name="note" maxLength={300} className="field" />
+                </div>
+              </ActionForm>
+            </section>
           )}
 
           {adviser && !c.is_internal ? (

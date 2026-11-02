@@ -12,7 +12,7 @@ export function findReport(slug: string) {
 
 function defaultFrom(slug: ReportSlug, today: string): string {
   if (slug === "hours-check") return addDays(weekStart(today), -7);
-  if (slug === "profitability") return today.slice(0, 5) + "01-01"; // year to date
+  if (slug === "profitability" || slug === "enquiries") return today.slice(0, 5) + "01-01"; // year to date
   return today.slice(0, 8) + "01"; // month to date
 }
 
