@@ -36,11 +36,13 @@ export function ConsultationForm() {
         if (!r.ok) throw new Error("Request failed");
       });
 
-    // Sent two ways at once: by email to the inbox (FormSubmit), and into the
-    // staff portal as a new enquiry. Either one arriving is enough.
+    // Sent two ways at once: by email (FormSubmit, to info@ with a copy to
+    // Priya), and into the staff portal as a new enquiry. Either one arriving
+    // is enough.
     const results = await Promise.allSettled([
       post(`https://formsubmit.co/ajax/${companyInfo.enquiriesEmail}`, {
         _subject: "New consultation enquiry — ppimconsulting.co.nz",
+        _cc: companyInfo.email,
         _honey: data.get("company") ?? "",
         name: data.get("name"),
         email: data.get("email"),
