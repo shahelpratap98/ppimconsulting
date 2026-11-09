@@ -7,12 +7,12 @@ import { companyInfo } from "@/lib/data";
 import { pageOpenGraph } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Book a Free Consultation",
+  title: "Book a Consultation",
   description:
-    "Book a free, no-obligation consultation with a licensed immigration adviser — in person in Auckland, by video call, or by phone.",
+    "Book a no-obligation consultation with a licensed immigration adviser — in person in Auckland, by video call, or by phone.",
   openGraph: pageOpenGraph(
-    "Book a Free Consultation | PPIM Consulting",
-    "Book a free, no-obligation consultation with a licensed immigration adviser — in person, by video call, or by phone.",
+    "Book a Consultation | PPIM Consulting",
+    "Book a no-obligation consultation with a licensed immigration adviser — in person, by video call, or by phone.",
     "/book-consultation"
   ),
 };
@@ -26,7 +26,7 @@ export default function BookConsultationPage() {
             tone="light"
             crumbs={[
               { name: "Home", path: "/" },
-              { name: "Book a Free Consultation", path: "/book-consultation" },
+              { name: "Book a Consultation", path: "/book-consultation" },
             ]}
           />
           <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-600">
@@ -37,7 +37,7 @@ export default function BookConsultationPage() {
           </h1>
           <p className="mt-5 max-w-md leading-relaxed text-navy-700/70">
             Share a few details and your licensed adviser will confirm your
-            free, 30-minute consultation — in person at our Auckland office,
+            30-minute consultation — in person at our Auckland office,
             by video call, or by phone.
           </p>
 

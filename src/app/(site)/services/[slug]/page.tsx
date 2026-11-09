@@ -83,7 +83,7 @@ export default async function ServiceDetailPage({
             </p>
             <div className="mt-8">
               <Button href="/book-consultation" size="lg">
-                Book a Free Consultation
+                Book a Consultation
                 <ArrowRight size={18} weight="bold" />
               </Button>
             </div>
@@ -221,12 +221,12 @@ export default async function ServiceDetailPage({
               Let&apos;s find your pathway together
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-cream/70">
-              Book a free consultation with a licensed adviser to discuss your
+              Book a consultation with a licensed adviser to discuss your
               {" "}{service.shortName.toLowerCase()} options.
             </p>
             <div className="mt-8">
               <Button href="/book-consultation" size="lg">
-                Book a Free Consultation
+                Book a Consultation
               </Button>
             </div>
           </AnimatedSection>

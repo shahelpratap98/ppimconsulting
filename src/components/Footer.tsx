@@ -85,6 +85,7 @@ export function Footer() {
             {[
               { href: "/about", label: "About & your adviser" },
               { href: "/fiji", label: "Our Fiji offices" },
+              { href: "/reviews", label: "Client reviews" },
               { href: "/book-consultation", label: "Book a consultation" },
               { href: "/contact", label: "Contact us" },
               { href: "/client-care", label: "Fees, agreements & complaints" },

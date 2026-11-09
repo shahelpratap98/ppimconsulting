@@ -5,8 +5,10 @@ import {
   Check,
   Clock,
   FacebookLogo,
+  GoogleLogo,
   MapPin,
   ShieldCheck,
+  Star,
   UsersThree,
 } from "@phosphor-icons/react/dist/ssr";
 import { JsonLd } from "@/components/JsonLd";
@@ -15,6 +17,7 @@ import { Button } from "@/components/Button";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { StatCounter } from "@/components/StatCounter";
+import { TestimonialCard } from "@/components/TestimonialCard";
 import {
   AnimatedSection,
   Stagger,
@@ -22,6 +25,7 @@ import {
 } from "@/components/AnimatedSection";
 import { Reveal } from "@/components/Reveal";
 import { services, facebookReviews, stats, companyInfo } from "@/lib/data";
+import { googleReviews, reviews } from "@/lib/reviews";
 
 const whyUs = [
   {
@@ -100,7 +104,7 @@ export default function Home() {
             <Reveal delay={0.24}>
               <div className="mt-9 flex flex-wrap items-center gap-4">
                 <Button href="/book-consultation" size="lg">
-                  Book a Free Consultation
+                  Book a Consultation
                   <ArrowRight size={18} weight="bold" />
                 </Button>
                 <Button
@@ -253,35 +257,69 @@ export default function Home() {
             <SectionHeading
               eyebrow="Client Reviews"
               title="Real people, real pathways"
-              description="Our clients rate their experience with us publicly on Facebook."
+              description="Rated 4.9 out of 5 across 153 Google reviews — and 100% recommended on Facebook."
             />
           </AnimatedSection>
 
           <AnimatedSection delay={0.1}>
-            <div className="mx-auto mt-14 flex max-w-3xl flex-col items-center gap-8 rounded-card border border-navy-900/10 bg-white/70 px-8 py-12 text-center md:flex-row md:justify-between md:px-12 md:text-left">
-              <div className="flex flex-col items-center gap-1 md:items-start">
-                <span className="font-display text-5xl text-navy-900 md:text-6xl">
-                  {facebookReviews.recommendPercent}%
-                </span>
-                <span className="text-sm font-medium text-navy-700/70">
-                  recommend us
-                </span>
-              </div>
-              <div className="flex flex-col items-center gap-2 md:items-start">
-                <p className="max-w-xs text-balance text-navy-700/80">
-                  {facebookReviews.reviewCount} client reviews and{" "}
-                  {facebookReviews.followers} followers on our Facebook page.
-                </p>
-                <a
-                  href={facebookReviews.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-2 rounded-full bg-navy-900 px-6 py-3 text-sm font-medium text-cream transition-all hover:-translate-y-0.5 hover:shadow-lg"
-                >
-                  <FacebookLogo size={20} weight="fill" />
-                  Read our reviews on Facebook
-                </a>
-              </div>
+            <div className="mx-auto mt-12 flex max-w-3xl flex-col items-center justify-center gap-6 rounded-card border border-navy-900/10 bg-white/70 px-8 py-8 text-center sm:flex-row sm:gap-10">
+              <a
+                href={googleReviews.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4"
+              >
+                <GoogleLogo size={32} weight="fill" className="text-navy-900" />
+                <div className="text-left">
+                  <div className="flex items-center gap-2">
+                    <span className="font-display text-3xl leading-none text-navy-900">
+                      {googleReviews.rating.toFixed(1)}
+                    </span>
+                    <span className="inline-flex gap-0.5" aria-hidden="true">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={i} size={16} weight="fill" className="text-gold-500" />
+                      ))}
+                    </span>
+                  </div>
+                  <span className="text-sm text-navy-700/70 group-hover:text-navy-900">
+                    {googleReviews.reviewCount} Google reviews
+                  </span>
+                </div>
+              </a>
+              <span className="hidden h-10 w-px bg-navy-900/10 sm:block" />
+              <a
+                href={facebookReviews.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4"
+              >
+                <FacebookLogo size={32} weight="fill" className="text-navy-900" />
+                <div className="text-left">
+                  <span className="font-display text-3xl leading-none text-navy-900">
+                    {facebookReviews.recommendPercent}%
+                  </span>
+                  <span className="block text-sm text-navy-700/70 group-hover:text-navy-900">
+                    recommend us on Facebook
+                  </span>
+                </div>
+              </a>
+            </div>
+          </AnimatedSection>
+
+          <Stagger className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {reviews.filter((r) => r.quote.length <= 240).slice(0, 6).map((review, i) => (
+              <StaggerItem key={i}>
+                <TestimonialCard name={review.name} origin="Google review" quote={review.quote} />
+              </StaggerItem>
+            ))}
+          </Stagger>
+
+          <AnimatedSection delay={0.1}>
+            <div className="mt-12 text-center">
+              <Button href="/reviews" variant="secondary" size="lg">
+                Read all {googleReviews.reviewCount} reviews
+                <ArrowRight size={18} weight="bold" />
+              </Button>
             </div>
           </AnimatedSection>
         </div>
@@ -297,13 +335,13 @@ export default function Home() {
           </AnimatedSection>
           <AnimatedSection delay={0.1}>
             <p className="max-w-xl text-balance text-navy-900/80">
-              Book a free, no-obligation consultation with a licensed adviser
+              Book a no-obligation consultation with a licensed adviser
               and leave with a clear plan for your visa pathway.
             </p>
           </AnimatedSection>
           <AnimatedSection delay={0.2} className="flex flex-wrap justify-center gap-4">
             <Button href="/book-consultation" variant="secondary" size="lg">
-              Book a Free Consultation
+              Book a Consultation
             </Button>
             <Link
               href={`tel:${companyInfo.phone.replace(/\s/g, "")}`}

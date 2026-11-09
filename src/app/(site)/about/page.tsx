@@ -264,12 +264,12 @@ export default function AboutPage() {
               Ready to meet your adviser?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-cream/70">
-              Book a free consultation and speak directly with a licensed
+              Book a consultation and speak directly with a licensed
               immigration adviser about your options.
             </p>
             <div className="mt-8">
               <Button href="/book-consultation" size="lg">
-                Book a Free Consultation
+                Book a Consultation
               </Button>
             </div>
           </AnimatedSection>

@@ -42,7 +42,7 @@ export const services: VisaService[] = [
       "English language ability at the required standard",
     ],
     process: [
-      { title: "Free initial assessment", description: "We review your qualifications, work history, and points to confirm your pathway." },
+      { title: "Initial assessment", description: "We review your qualifications, work history, and points to confirm your pathway." },
       { title: "Expression of Interest", description: "We prepare and submit a compelling EOI that reflects your true strength as a candidate." },
       { title: "Invitation to Apply", description: "Once selected, we build your full residence application with supporting evidence." },
       { title: "Decision & residence", description: "We manage correspondence with INZ until your residence is confirmed." },
@@ -51,7 +51,7 @@ export const services: VisaService[] = [
       {
         question: "How many points do I need?",
         answer:
-          "Requirements are reviewed regularly by Immigration New Zealand. In your free assessment we calculate your current points and flag ways to strengthen your position.",
+          "Requirements are reviewed regularly by Immigration New Zealand. In your assessment we calculate your current points and flag ways to strengthen your position.",
       },
       {
         question: "Can my family be included?",
@@ -155,7 +155,7 @@ export const services: VisaService[] = [
       "Health and character requirements met",
     ],
     process: [
-      { title: "Free initial assessment", description: "We review your travel purpose, ties to home and funds to confirm the right visitor pathway." },
+      { title: "Initial assessment", description: "We review your travel purpose, ties to home and funds to confirm the right visitor pathway." },
       { title: "Evidence preparation", description: "We help you gather funds, sponsorship, accommodation and travel evidence that stands up to scrutiny." },
       { title: "Application & lodgement", description: "We lodge your complete application and respond to any requests from Immigration New Zealand." },
       { title: "Visa grant & travel", description: "We confirm your visa conditions, allowed stay and any multiple-entry provisions before you fly." },

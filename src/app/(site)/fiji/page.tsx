@@ -91,7 +91,7 @@ export default function FijiPage() {
             variant="ghostLight"
             size="lg"
           >
-            Book a free consultation
+            Book a consultation
           </Button>
         </div>
       </PageHero>
@@ -214,9 +214,9 @@ export default function FijiPage() {
             <div className="mt-6 flex items-start gap-3 rounded-2xl border border-fern-500/20 bg-fern-50 p-5">
               <CalendarCheck size={20} weight="duotone" className="mt-0.5 shrink-0 text-fern-700" />
               <p className="text-sm leading-relaxed text-fern-700">
-                Your first consultation is free. If you go ahead, you&apos;ll
-                receive a written client agreement setting out the work and
-                our fees before anything is charged.
+                If you decide to go ahead, you&apos;ll receive a written
+                client agreement setting out the work and our fees before
+                anything is charged.
               </p>
             </div>
           </AnimatedSection>
@@ -243,7 +243,7 @@ export default function FijiPage() {
                 variant="ghostLight"
                 size="lg"
               >
-                Book a free consultation
+                Book a consultation
               </Button>
             </div>
           </AnimatedSection>

@@ -1,4 +1,5 @@
 import { companyInfo, services as visaServices, team } from "@/lib/data";
+import { googleReviews, reviews } from "@/lib/reviews";
 
 export const SITE_URL = "https://www.ppimconsulting.co.nz";
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
@@ -69,7 +70,14 @@ export function buildOrganizationSchema() {
       opens: "09:00",
       closes: "17:30",
     },
-    sameAs: [companyInfo.facebook],
+    sameAs: [companyInfo.facebook, googleReviews.url],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: googleReviews.rating,
+      reviewCount: googleReviews.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    },
     founder: { "@id": ADVISER_ID },
     employee: { "@id": ADVISER_ID },
     hasOfferCatalog: {
@@ -85,6 +93,30 @@ export function buildOrganizationSchema() {
         },
       })),
     },
+  };
+}
+
+/** Reviews page: the aggregate plus the individual reviews shown on the page. */
+export function buildReviewsSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": ORGANIZATION_ID,
+    name: companyInfo.name,
+    url: `${SITE_URL}/reviews`,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: googleReviews.rating,
+      reviewCount: googleReviews.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    review: reviews.map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.name },
+      reviewRating: { "@type": "Rating", ratingValue: 5, bestRating: 5 },
+      reviewBody: r.quote,
+    })),
   };
 }
 

@@ -7,7 +7,7 @@ import { pageOpenGraph } from "@/lib/seo";
 import { companyInfo } from "@/lib/data";
 
 const DESCRIPTION =
-  "How PPIM Consulting works with clients: free first consultation, written client agreements, how fees work, and how to raise a complaint.";
+  "How PPIM Consulting works with clients: your first consultation, written client agreements, how fees work, and how to raise a complaint.";
 
 export const metadata: Metadata = {
   title: "Fees, Client Agreements & Complaints",
@@ -45,12 +45,12 @@ export default function ClientCarePage() {
 
       <section className="py-20 md:py-28">
         <div className="container-page max-w-3xl">
-          <Block title="Your first consultation is free">
+          <Block title="Your first consultation">
             <p>
-              Your initial consultation costs nothing and carries no
-              obligation. We use it to understand your situation, explain
-              which pathways are realistic, and tell you honestly if
-              applying now isn&apos;t in your interest.
+              Your initial consultation carries no obligation. We use it to
+              understand your situation, explain which pathways are
+              realistic, and tell you honestly if applying now isn&apos;t in
+              your interest.
             </p>
           </Block>
 
@@ -74,7 +74,7 @@ export default function ClientCarePage() {
           <Block title="How fees work">
             <p>
               Our professional fee depends on the visa and the complexity of
-              your case, so we quote it in writing after your free
+              your case, so we quote it in writing after your
               consultation rather than publishing a one-size price.
             </p>
             <p>
@@ -151,7 +151,7 @@ export default function ClientCarePage() {
 
           <div className="pt-6">
             <Button href="/book-consultation" size="lg">
-              Book a Free Consultation
+              Book a Consultation
             </Button>
           </div>
         </div>

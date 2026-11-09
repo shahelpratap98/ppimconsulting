@@ -150,7 +150,7 @@ export default function ContactPage() {
                 What happens when you get in touch
               </h2>
               <p className="mt-3 leading-relaxed text-navy-700/80">
-                We reply within one business day to arrange a free initial
+                We reply within one business day to arrange an initial
                 consultation. In it, your adviser looks at your situation,
                 explains which visa pathways are realistic, and tells you
                 honestly if now isn&apos;t the right time to apply. If you
@@ -160,7 +160,7 @@ export default function ContactPage() {
               </p>
               <div className="mt-6">
                 <Button href="/book-consultation" size="lg">
-                  Book a Free Consultation
+                  Book a Consultation
                 </Button>
               </div>
             </AnimatedSection>

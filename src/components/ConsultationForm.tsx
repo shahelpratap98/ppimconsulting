@@ -89,7 +89,7 @@ export function ConsultationForm() {
         </h3>
         <p className="mt-2 max-w-sm text-navy-700/70">
           Thank you — a licensed adviser will contact you within one business
-          day to confirm your free consultation.
+          day to confirm your consultation.
         </p>
       </motion.div>
     );
@@ -203,7 +203,7 @@ export function ConsultationForm() {
         {status === "submitting" && (
           <Spinner size={18} className="animate-spin" />
         )}
-        {status === "submitting" ? "Sending..." : "Request free consultation"}
+        {status === "submitting" ? "Sending..." : "Request a consultation"}
       </button>
       <p className="text-xs leading-relaxed text-navy-700/70">
         By submitting, you agree to be contacted by PPIM Consulting about

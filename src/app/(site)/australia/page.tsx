@@ -107,7 +107,7 @@ export default function AustraliaPage() {
       >
         <div className="mt-9 flex flex-wrap items-center gap-4">
           <Button href="/book-consultation" size="lg">
-            Book a Free Consultation
+            Book a Consultation
           </Button>
           <a
             href={companyInfo.maraRegisterUrl}
@@ -215,7 +215,7 @@ export default function AustraliaPage() {
             <ul className="mt-6 space-y-4">
               {[
                 "Consultations by video call or phone, or in person at our Auckland office. We do not have an Australian office.",
-                "A free initial consultation to assess your options before you commit to anything.",
+                "An initial consultation to assess your options before you commit to anything.",
                 "A written client agreement setting out the work and our fees before any paid work begins. Home Affairs charges, medicals and police checks are separate.",
                 "Priya's MARN covers Australian visa assistance; her IAA licence covers New Zealand immigration advice.",
               ].map((point) => (
@@ -266,7 +266,7 @@ export default function AustraliaPage() {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button href="/book-consultation" size="lg">
-                Book a Free Consultation
+                Book a Consultation
               </Button>
               <Button
                 href={companyInfo.whatsapp}

@@ -60,7 +60,7 @@ export default function ServicesPage() {
             </h2>
             <p className="mt-4 leading-relaxed text-navy-700/80">
               Each pathway has its own rules, evidence requirements and
-              timing. Choose the one closest to your plans — or book a free
+              timing. Choose the one closest to your plans — or book a
               consultation and we&apos;ll tell you which fits. Looking at
               Australia instead?{" "}
               <Link href="/australia" className="text-gold-600 underline underline-offset-2">
@@ -84,12 +84,12 @@ export default function ServicesPage() {
           <AnimatedSection>
             <SectionHeading
               eyebrow="Not sure where to start?"
-              title="Every case starts with a free consultation"
+              title="Every case starts with a consultation"
               description="We'll assess your situation honestly and point you to the right pathway — even if that means telling you it's not the right time yet."
             />
             <div className="mt-8">
               <Button href="/book-consultation" size="lg">
-                Book a Free Consultation
+                Book a Consultation
               </Button>
             </div>
           </AnimatedSection>

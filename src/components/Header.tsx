@@ -13,6 +13,7 @@ const navItems = [
   { href: "/australia", label: "Australia" },
   { href: "/fiji", label: "Fiji" },
   { href: "/about", label: "About" },
+  { href: "/reviews", label: "Reviews" },
   { href: "/contact", label: "Contact" },
 ];
 
